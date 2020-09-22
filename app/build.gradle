@@ -25,14 +25,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            buildConfigField 'String', 'BASE_URL', '"https://rickandmortyapi.com/api/"'
+        }
         release {
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            minifyEnabled false
-            debuggable true
+            buildConfigField 'String', 'BASE_URL', '"https://rickandmortyapi.com/api/"'
         }
     }
     compileOptions {
@@ -47,6 +49,9 @@ android {
     }
     androidExtensions {
         experimental = true
+    }
+    packagingOptions {
+        exclude 'META-INF/atomicfu.kotlin_module'
     }
 }
 
@@ -73,9 +78,10 @@ dependencies {
     implementation "com.github.skydoves:sandwich:$sandwichVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
-    testImplementation "com.squareup.okhttp3:mockwebserver:$okhttpVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
 
     // coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
