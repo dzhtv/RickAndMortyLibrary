@@ -1,9 +1,7 @@
 package com.dzhtv.rickandmortylibrary.network
 
 import com.dzhtv.rickandmortylibrary.model.BaseResponse
-import com.dzhtv.rickandmortylibrary.model.CharacterDto
-import kotlinx.coroutines.Deferred
-import retrofit2.Call
+import com.dzhtv.rickandmortylibrary.model.Character
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -14,12 +12,16 @@ interface CharacterService {
     @GET("character/")
     suspend fun getCharacters(
         @Query("page") page: Int? = null,
-        @Query("name") name: String? = null
-    ): Response<BaseResponse<CharacterDto>>
+        @Query("name") name: String? = null,
+        @Query("status") status: String? = null,
+        @Query("species") species: String? = null,
+        @Query("type") type: String? = null,
+        @Query("gender") gender: String? = null
+    ): Response<BaseResponse<Character>>
 
     @GET("character/{id}")
-    suspend fun getCharacterById(@Path("id") id: Int)
+    suspend fun getCharacterById(@Path("id") id: Int): Response<Character>
 
     @GET("character/{id}")
-    suspend fun getCharacterById(@Path("id") idList: String)
+    suspend fun getCharacterByIdList(@Path("id") idList: String): Response<List<Character>?>
 }

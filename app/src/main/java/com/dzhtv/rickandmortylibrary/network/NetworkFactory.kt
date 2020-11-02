@@ -1,7 +1,7 @@
 package com.dzhtv.rickandmortylibrary.network
 
-import com.dzhtv.rickandmortylibrary.model.BASE_URL
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.dzhtv.rickandmortylibrary.BuildConfig
+import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,7 +17,7 @@ class NetworkFactory {
         fun createService(): CharacterService {
             val client = getUnsafeOkHttpBuilder().build()
             return Retrofit.Builder().apply {
-                baseUrl(BASE_URL)
+                baseUrl(BuildConfig.BASE_URL)
                 addConverterFactory(GsonConverterFactory.create())
                 client(client)
             }.build().create(CharacterService::class.java)

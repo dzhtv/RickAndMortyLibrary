@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary.ui
+package com.dzhtv.rickandmortylibrary.ui.main
 
 import androidx.lifecycle.ViewModel
 
