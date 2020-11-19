@@ -4,8 +4,9 @@ import com.dzhtv.rickandmortylibrary.model.Character
 import com.dzhtv.rickandmortylibrary.model.CharacterGender
 import com.dzhtv.rickandmortylibrary.model.CharacterStatus
 import com.dzhtv.rickandmortylibrary.network.CharacterService
+import javax.inject.Inject
 
-class NetworkRepositoryImpl(private val client: CharacterService) : NetworkRepository {
+class NetworkRepositoryImpl @Inject constructor(private val client: CharacterService) : NetworkRepository {
 
     override suspend fun getCharacters(
         page: Int?,
@@ -23,7 +24,6 @@ class NetworkRepositoryImpl(private val client: CharacterService) : NetworkRepos
     }
 
     override suspend fun getCharacters(idList: Array<Int>): List<Character>? {
-        TODO("Not yet implemented")
-        return null
+        return client.getCharacterByIdList(idList.toString()).body()
     }
 }

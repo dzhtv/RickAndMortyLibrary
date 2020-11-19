@@ -24,4 +24,5 @@ interface CharacterService {
 
     @GET("character/{id}")
     suspend fun getCharacterByIdList(@Path("id") idList: String): Response<List<Character>?>
+
 }
