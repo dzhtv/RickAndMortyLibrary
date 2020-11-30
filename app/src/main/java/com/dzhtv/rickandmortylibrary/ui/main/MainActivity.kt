@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import com.dzhtv.rickandmortylibrary.CharacterListFragment
 import com.dzhtv.rickandmortylibrary.R
 import com.dzhtv.rickandmortylibrary.network.NetworkFactory
 import com.dzhtv.rickandmortylibrary.network.repository.NetworkRepositoryImpl
@@ -18,25 +19,14 @@ import kotlinx.coroutines.*
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var postBtn: Button
-    private lateinit var progress: ProgressBar
-    private val cViewModel: CharactersViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        postBtn = findViewById(R.id.post_btn)
-        progress = findViewById(R.id.progress_bar)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        postBtn.setOnClickListener {
-            cViewModel.fetchCharacters()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container_main, CharacterListFragment())
+                .commit()
         }
-        cViewModel.isLoadingProgress.observe(this, Observer {
-            progress.visibility = it
-        })
     }
 }

@@ -6,7 +6,9 @@ import com.dzhtv.rickandmortylibrary.model.CharacterStatus
 import com.dzhtv.rickandmortylibrary.network.CharacterService
 import javax.inject.Inject
 
-class NetworkRepositoryImpl @Inject constructor(private val client: CharacterService) : NetworkRepository {
+class NetworkRepositoryImpl @Inject constructor(
+    private val client: CharacterService
+) : NetworkRepository {
 
     override suspend fun getCharacters(
         page: Int?,

@@ -14,8 +14,9 @@ import javax.net.ssl.X509TrustManager
 
 class NetworkFactory {
     object RickAndMortyService {
+
         fun createService(): CharacterService {
-            val client = getUnsafeOkHttpBuilder().build()
+            val client = getUnsafeOkHttpClient()
             return Retrofit.Builder().apply {
                 baseUrl(BuildConfig.BASE_URL)
                 addConverterFactory(GsonConverterFactory.create())
@@ -23,11 +24,11 @@ class NetworkFactory {
             }.build().create(CharacterService::class.java)
         }
 
-        private val interceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
-        private fun getUnsafeOkHttpBuilder(): OkHttpClient.Builder {
+        /**
+         * Trust all certificates
+         */
+        fun getUnsafeOkHttpClient(): OkHttpClient {
+            // Create a trust manager that does not validate certificate chains
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
                 override fun checkClientTrusted(
                     chain: Array<out X509Certificate>?,
@@ -43,15 +44,20 @@ class NetworkFactory {
 
                 override fun getAcceptedIssuers() = arrayOf<X509Certificate>()
             })
+
+            // Install the all-trusting trust manager
             val sslContext = SSLContext.getInstance("SSL")
             sslContext.init(null, trustAllCerts, java.security.SecureRandom())
+            // Create an ssl socket factory with our all-trusting manager
             val sslSocketFactory = sslContext.socketFactory
 
-            return OkHttpClient.Builder().apply {
-                sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-                hostnameVerifier(HostnameVerifier { _, _ -> true })
-                addInterceptor(interceptor)
-            }
+            return OkHttpClient.Builder()
+                .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
+                .hostnameVerifier(HostnameVerifier { _, _ -> true })
+                .addInterceptor(HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                })
+                .build()
         }
     }
 }

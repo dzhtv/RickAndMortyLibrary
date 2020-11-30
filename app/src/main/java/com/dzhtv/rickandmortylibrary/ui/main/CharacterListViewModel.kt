@@ -1,24 +1,25 @@
 package com.dzhtv.rickandmortylibrary.ui.main
 
-import android.util.Log
 import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
+import com.dzhtv.rickandmortylibrary.adapter.CharacterGridAdapter
 import com.dzhtv.rickandmortylibrary.base.BaseViewModel
+import com.dzhtv.rickandmortylibrary.log
 import com.dzhtv.rickandmortylibrary.model.Character
 import com.dzhtv.rickandmortylibrary.network.repository.NetworkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class CharactersViewModel @ViewModelInject constructor(
-    private val networkRepo: NetworkRepository
+class CharacterListViewModel @ViewModelInject constructor(
+    private val networkRepo: NetworkRepository,
+    private val adapter: CharacterGridAdapter
 ) : BaseViewModel() {
 
     var isLoadingProgress = MutableLiveData(View.GONE)
     var errorMessage = MutableLiveData("")
-    var characters = MutableLiveData(listOf<Character>())
+    private var characters = MutableLiveData(listOf<Character>())
 
     override fun handlerError(t: Throwable) {
         t.message?.let {
@@ -26,7 +27,20 @@ class CharactersViewModel @ViewModelInject constructor(
         }
     }
 
+    fun getCharacterAdapter(): CharacterGridAdapter {
+        return adapter
+    }
+
     fun fetchCharacters() {
+        if (characters.value.isNullOrEmpty())
+            loadCharacters()
+    }
+
+    fun refreshCharacter() {
+        loadCharacters()
+    }
+
+    private fun loadCharacters() {
         isLoadingProgress.value = View.VISIBLE
         coroutineScope.launch {
             val deferred = async(Dispatchers.IO) {
@@ -34,9 +48,19 @@ class CharactersViewModel @ViewModelInject constructor(
             }
             characters.value = deferred.await()
             isLoadingProgress.value = View.GONE
-            Log.d("dzhtv", "Characters size: ${characters.value?.size}")
+            log("Load characters, characters size: ${characters.value?.size}")
+            characters.value?.let {
+                updateCharacterAdapter(it)
+            }
         }
     }
 
-    fun refreshCharacter() {}
+    private fun updateCharacterAdapter(characters: List<Character>) {
+        if (characters.isNotEmpty()) {
+            adapter.apply {
+                refreshItems(characters)
+                notifyDataSetChanged()
+            }
+        }
+    }
 }
