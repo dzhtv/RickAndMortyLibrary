@@ -2,19 +2,9 @@ package com.dzhtv.rickandmortylibrary.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
-import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import com.dzhtv.rickandmortylibrary.CharacterListFragment
+import com.dzhtv.rickandmortylibrary.ui.character_list.CharacterListFragment
 import com.dzhtv.rickandmortylibrary.R
-import com.dzhtv.rickandmortylibrary.network.NetworkFactory
-import com.dzhtv.rickandmortylibrary.network.repository.NetworkRepositoryImpl
-import com.dzhtv.rickandmortylibrary.network.repository.NetworkRepository
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

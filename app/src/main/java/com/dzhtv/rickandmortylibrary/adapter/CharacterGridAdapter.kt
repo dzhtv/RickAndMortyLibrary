@@ -13,10 +13,17 @@ import javax.inject.Inject
 class CharacterGridAdapter @Inject constructor(private val context: Context) :
     RecyclerView.Adapter<CharacterGridAdapter.CharacterViewHolder>() {
 
-    private var items: List<Character> = listOf()
+    private var items: MutableList<Character> = mutableListOf()
 
     fun refreshItems(collections: List<Character>) {
-        this.items = collections
+        this.items.addAll(collections)
+        notifyDataSetChanged()
+    }
+
+    fun addItems(collections: List<Character>) {
+        this.items.apply {
+            addAll(collections)
+        }
         notifyDataSetChanged()
     }
 
@@ -25,7 +32,7 @@ class CharacterGridAdapter @Inject constructor(private val context: Context) :
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        val data = items[position]
+        val data = items.toList()[position]
         holder.binding.title.text = data.name
         data.image?.let { url ->
             GlideApp.with(context)

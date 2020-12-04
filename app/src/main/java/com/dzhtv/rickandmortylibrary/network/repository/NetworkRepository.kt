@@ -1,5 +1,6 @@
 package com.dzhtv.rickandmortylibrary.network.repository
 
+import com.dzhtv.rickandmortylibrary.model.BaseResponse
 import com.dzhtv.rickandmortylibrary.model.Character
 import com.dzhtv.rickandmortylibrary.model.CharacterGender
 import com.dzhtv.rickandmortylibrary.model.CharacterStatus
@@ -13,7 +14,7 @@ interface NetworkRepository {
         species: String? = null,
         type: String? = null,
         gender: CharacterGender? = null
-    ): List<Character>?
+    ): BaseResponse<Character>?
 
     suspend fun getCharacter(id: Int): Character?
 

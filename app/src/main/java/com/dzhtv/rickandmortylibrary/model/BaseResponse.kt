@@ -1,8 +1,14 @@
 package com.dzhtv.rickandmortylibrary.model
 
+import com.google.gson.annotations.SerializedName
+
 data class BaseResponse<T>(
+    @SerializedName("info")
     val info: Info?,
-    val results: List<T>?
+    @SerializedName("results")
+    val results: List<T>?,
+    @SerializedName("error")
+    val error: String? = null
 )
 
 data class Info(

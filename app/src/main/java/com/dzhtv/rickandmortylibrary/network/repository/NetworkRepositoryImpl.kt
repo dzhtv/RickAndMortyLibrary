@@ -1,5 +1,6 @@
 package com.dzhtv.rickandmortylibrary.network.repository
 
+import com.dzhtv.rickandmortylibrary.model.BaseResponse
 import com.dzhtv.rickandmortylibrary.model.Character
 import com.dzhtv.rickandmortylibrary.model.CharacterGender
 import com.dzhtv.rickandmortylibrary.model.CharacterStatus
@@ -17,8 +18,8 @@ class NetworkRepositoryImpl @Inject constructor(
         species: String?,
         type: String?,
         gender: CharacterGender?
-    ): List<Character>? {
-        return client.getCharacters().body()?.results
+    ): BaseResponse<Character>? {
+        return client.getCharacters(page = page).body()
     }
 
     override suspend fun getCharacter(id: Int): Character? {
