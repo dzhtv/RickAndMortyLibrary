@@ -24,7 +24,6 @@ class CharacterGridAdapter @Inject constructor(private val context: Context) :
         this.items.apply {
             addAll(collections)
         }
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {

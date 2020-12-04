@@ -23,6 +23,9 @@ class CharacterListViewModel @ViewModelInject constructor(
     private val _errorMessage = MutableLiveData<Event<String>>()
     val errorMessage: LiveData<Event<String>>
         get() = _errorMessage
+    private val _scrollDown = MutableLiveData<Event<Unit>>()
+    val scrollDown: LiveData<Event<Unit>>
+        get() = _scrollDown
     var isLoadingProgress = MutableLiveData(View.GONE)
     private var characters = MutableLiveData(listOf<Character>())
     private var nextPage: Int? = null
@@ -59,6 +62,8 @@ class CharacterListViewModel @ViewModelInject constructor(
         characters.value = result.results?.apply {
             updateCharacterAdapter(this)
         }
+        if (nextPage != null)
+            _scrollDown.value = Event(Unit)
         nextPage = result.info?.next?.substringAfterLast("page=")?.toInt()
     }
 

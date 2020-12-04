@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dzhtv.rickandmortylibrary.base.BaseFragment
 import com.dzhtv.rickandmortylibrary.databinding.FragmentCharacterListBinding
@@ -18,10 +19,6 @@ class CharacterListFragment : BaseFragment() {
     private val characterViewModel: CharacterListViewModel by viewModels()
     private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +50,13 @@ class CharacterListFragment : BaseFragment() {
         })
         characterViewModel.isLoadingProgress.observe(viewLifecycleOwner, Observer {
             binding.progressBar.visibility = it
+        })
+        characterViewModel.scrollDown.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                binding.recyclerView.layoutManager?.let {
+                    it.scrollToPosition((it as LinearLayoutManager).findFirstVisibleItemPosition() + 9)
+                }
+            }
         })
     }
 }

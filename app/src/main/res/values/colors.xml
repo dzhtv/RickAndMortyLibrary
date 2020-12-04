@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">@color/blue_celadon</color>
+    <color name="colorPrimaryDark">@color/blue_prussian</color>
+    <color name="colorAccent">@color/red_imperial</color>
 
     <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="background_gray">#ebebeb</color>
+    <color name="pink">#FE6B81</color>
+    <color name="dark_gray">#879196</color>
+    <color name="dark_blue_text">#2f3543</color>
+    <color name="dark_blue_text_alpha">#802F3543</color>
+    <color name="light_gray">#f4f4f4</color>
+    <color name="gray">#979aa1</color>
+    <color name="gray_white">#cfcfcf</color>
+    
+    <color name="red_imperial">#e63946</color>
+    <color name="green_honeydew">#f1faee</color>
+    <color name="blue_powder">#a8dadc</color>
+    <color name="blue_celadon">#457b9d</color>
+    <color name="blue_prussian">#1d3557</color>
 </resources>
