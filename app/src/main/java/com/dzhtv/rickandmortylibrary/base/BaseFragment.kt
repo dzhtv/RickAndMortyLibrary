@@ -4,6 +4,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.dzhtv.rickandmortylibrary.R
+import com.dzhtv.rickandmortylibrary.ui.character_list.CharacterViewModel
+import com.dzhtv.rickandmortylibrary.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment : Fragment() {
@@ -26,5 +28,14 @@ abstract class BaseFragment : Fragment() {
                 block.invoke()
             }
             .show()
+    }
+
+    protected fun provideCharacterViewModel(): CharacterViewModel {
+        val cc = requireActivity()
+        if (cc is MainActivity) {
+            return cc.getCharacterViewModel() as CharacterViewModel
+        } else {
+            throw IllegalArgumentException("not find view model")
+        }
     }
 }

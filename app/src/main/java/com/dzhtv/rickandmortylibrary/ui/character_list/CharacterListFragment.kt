@@ -9,23 +9,27 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dzhtv.rickandmortylibrary.R
+import com.dzhtv.rickandmortylibrary.adapter.OnItemClickListener
+import com.dzhtv.rickandmortylibrary.adapter.RecyclerItemClickListener
 import com.dzhtv.rickandmortylibrary.base.BaseFragment
 import com.dzhtv.rickandmortylibrary.databinding.FragmentCharacterListBinding
-import dagger.hilt.android.AndroidEntryPoint
+import com.dzhtv.rickandmortylibrary.ui.character_detail.CharacterDetailFragment
+import com.dzhtv.rickandmortylibrary.ui.main.MainActivity
 
-@AndroidEntryPoint
 class CharacterListFragment : BaseFragment() {
 
-    private val characterViewModel: CharacterListViewModel by viewModels()
+    private lateinit var characterViewModel: CharacterViewModel
     private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
-    
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
+        characterViewModel = provideCharacterViewModel()
         return binding.root
     }
 
@@ -33,6 +37,27 @@ class CharacterListFragment : BaseFragment() {
         super.onStart()
         characterViewModel.fetchCharacters()
 
+        binding.recyclerView.apply {
+            layoutManager = GridLayoutManager(requireActivity(), 2)
+            adapter = characterViewModel.getCharacterAdapter()
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (!recyclerView.canScrollVertically(1)) {
+                        characterViewModel.onScrolledRecyclerToEnd()
+                    }
+                }
+            })
+            addOnItemTouchListener(RecyclerItemClickListener(requireActivity(), this, object : OnItemClickListener {
+                override fun onItemClick(view: View, position: Int) {
+                    characterViewModel.clickOnPosition(position)
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.container_main, CharacterDetailFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }))
+        }
         binding.recyclerView.layoutManager = GridLayoutManager(requireActivity(), 2)
         binding.recyclerView.adapter = characterViewModel.getCharacterAdapter()
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -43,6 +68,7 @@ class CharacterListFragment : BaseFragment() {
                 }
             }
         })
+
         characterViewModel.errorMessage.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let { text ->
                 showSnackbar(binding.recyclerView, text)

@@ -30,12 +30,16 @@ android {
             minifyEnabled false
             debuggable true
             buildConfigField 'String', 'BASE_URL', '"https://rickandmortyapi.com/api/"'
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+            resValue "string", "app_name", "[debug]Rick and Morty"
         }
         release {
             minifyEnabled true
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField 'String', 'BASE_URL', '"https://rickandmortyapi.com/api/"'
+            resValue "string", "app_name", "Rick and Morty"
         }
     }
     compileOptions {
