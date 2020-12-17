@@ -8,6 +8,7 @@ import com.dzhtv.rickandmortylibrary.Event
 import com.dzhtv.rickandmortylibrary.adapter.CharacterGridAdapter
 import com.dzhtv.rickandmortylibrary.base.BaseViewModel
 import com.dzhtv.rickandmortylibrary.log
+import com.dzhtv.rickandmortylibrary.merge
 import com.dzhtv.rickandmortylibrary.model.BaseResponse
 import com.dzhtv.rickandmortylibrary.model.Character
 import com.dzhtv.rickandmortylibrary.network.repository.NetworkRepository
@@ -64,8 +65,9 @@ class CharacterViewModel @ViewModelInject constructor(
     }
 
     private fun handleResponse(result: BaseResponse<Character>) {
-        characters.value = result.results?.apply {
-            updateCharacterAdapter(this)
+        if (characters.value != null && !result.results.isNullOrEmpty()) {
+            characters.value = characters.value?.merge(result.results)
+            updateCharacterAdapter(characters.value!!)
         }
         if (nextPage != null)
             _scrollDown.value = Event(Unit)

@@ -42,10 +42,12 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:background="@color/dark_gray_alpha"
                     android:gravity="center"
                     android:text="Rick"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     tools:text="Rick"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>

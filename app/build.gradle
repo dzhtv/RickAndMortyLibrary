@@ -70,6 +70,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintVersion"
     implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.recyclerview:recyclerview:$recyclerView"
 
     // architecture components
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"

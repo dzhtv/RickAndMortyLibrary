@@ -20,6 +20,13 @@ fun View.hideKeyboard(): Boolean {
     return false
 }
 
+fun <T>Iterable<T>.merge(collection: Iterable<T>): List<T> {
+    val mutable = mutableListOf<T>()
+    mutable.addAll(this)
+    mutable.addAll(collection)
+    return mutable.toList()
+}
+
 fun <T>fetchAsync(block: suspend () -> T) {
 
 }

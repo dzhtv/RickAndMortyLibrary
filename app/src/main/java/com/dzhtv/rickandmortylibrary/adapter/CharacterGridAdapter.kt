@@ -15,6 +15,10 @@ class CharacterGridAdapter @Inject constructor(private val context: Context) :
 
     private var items: MutableList<Character> = mutableListOf()
 
+    init {
+        stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
+    }
+
     fun refreshItems(collections: List<Character>) {
         this.items.addAll(collections)
         notifyDataSetChanged()
@@ -22,6 +26,7 @@ class CharacterGridAdapter @Inject constructor(private val context: Context) :
 
     fun addItems(collections: List<Character>) {
         this.items.apply {
+            removeAll(this)
             addAll(collections)
         }
     }

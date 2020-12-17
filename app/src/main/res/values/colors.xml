@@ -9,6 +9,7 @@
     <color name="background_gray">#ebebeb</color>
     <color name="pink">#FE6B81</color>
     <color name="dark_gray">#879196</color>
+    <color name="dark_gray_alpha">#B3879196</color>
     <color name="dark_blue_text">#2f3543</color>
     <color name="dark_blue_text_alpha">#802F3543</color>
     <color name="light_gray">#f4f4f4</color>
