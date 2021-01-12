@@ -1,56 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
             name="viewModel"
-            type="com.dzhtv.rickandmortylibrary.ui.character_list.CharacterViewModel" />
+            type="com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.character_detail.CharacterActivity">
+        android:background="@color/gray">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            android:layout_height="match_parent"
+            tools:context=".presentation.ui.character_detail.CharacterActivity">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/image"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:text="@{viewModel.character.name}"
-            android:textSize="22dp"
-            android:textStyle="bold"
-            android:textColor="@color/dark_blue_text"
-            />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/corners_bottom"
+                app:imageUrl="@{viewModel.characterImageUrl}"
+                />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/name"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:text="@{viewModel.character.status}"
-            android:textSize="14dp"
-            android:textStyle="normal"
-            android:textColor="@color/gray"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/image"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="@{viewModel.character.name}"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/name"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:text="@{viewModel.character.status}"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/origin_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/status"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/origin"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                app:isGoneIfEmpty="@{viewModel.character.origin.name}"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/origin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/origin_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:textSize="22sp"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                android:text="@{viewModel.character.origin.name}"
+                app:isGoneIfEmpty="@{viewModel.character.origin.name}"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/location_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/origin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/location"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                app:isGoneIfEmpty="@{viewModel.character.location.name}"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/location_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:textSize="22sp"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                android:text="@{viewModel.character.location.name}"
+                app:isGoneIfEmpty="@{viewModel.character.location.name}"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/species_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/species"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                app:isGoneIfEmpty="@{viewModel.character.species}"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/species"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/species_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="1dp"
+                android:text='@{viewModel.character.species != null ? viewModel.character.species : ""}'
+                android:textSize="22sp"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                app:isGoneIfEmpty="@{viewModel.character.species}"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/type_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/species"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/type"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                app:isGoneIfEmpty="@{viewModel.character.type}"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/type_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="1dp"
+                android:text='@{viewModel.character.type ?? ""}'
+                android:textSize="22sp"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                app:isGoneIfEmpty="@{viewModel.character.type}"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/gender_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/gender"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                app:isGoneIfEmpty="@{viewModel.character.gender}"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/gender_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="25dp"
+                android:text='@{viewModel.character.gender}'
+                android:textSize="22sp"
+                android:textStyle="normal"
+                android:textColor="@color/white"
+                app:isGoneIfEmpty="@{viewModel.character.gender}"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </layout>

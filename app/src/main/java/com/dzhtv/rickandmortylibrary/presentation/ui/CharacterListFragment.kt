@@ -1,21 +1,19 @@
-package com.dzhtv.rickandmortylibrary.ui.character_list
+package com.dzhtv.rickandmortylibrary.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dzhtv.rickandmortylibrary.R
-import com.dzhtv.rickandmortylibrary.adapter.OnItemClickListener
-import com.dzhtv.rickandmortylibrary.adapter.RecyclerItemClickListener
-import com.dzhtv.rickandmortylibrary.base.BaseFragment
+import com.dzhtv.rickandmortylibrary.presentation.adapter.OnItemClickListener
+import com.dzhtv.rickandmortylibrary.presentation.adapter.RecyclerItemClickListener
+import com.dzhtv.rickandmortylibrary.presentation.base.BaseFragment
 import com.dzhtv.rickandmortylibrary.databinding.FragmentCharacterListBinding
-import com.dzhtv.rickandmortylibrary.ui.character_detail.CharacterDetailFragment
-import com.dzhtv.rickandmortylibrary.ui.main.MainActivity
+import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
 
 class CharacterListFragment : BaseFragment() {
 

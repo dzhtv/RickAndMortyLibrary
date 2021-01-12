@@ -1,12 +1,12 @@
-package com.dzhtv.rickandmortylibrary.adapter
+package com.dzhtv.rickandmortylibrary.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.dzhtv.rickandmortylibrary.data.GlideApp
 import com.dzhtv.rickandmortylibrary.databinding.ItemCharacterBinding
-import com.dzhtv.rickandmortylibrary.model.Character
-import com.dzhtv.rickandmortylibrary.network.GlideApp
+import com.dzhtv.rickandmortylibrary.data.model.Character
 import javax.inject.Inject
 
 

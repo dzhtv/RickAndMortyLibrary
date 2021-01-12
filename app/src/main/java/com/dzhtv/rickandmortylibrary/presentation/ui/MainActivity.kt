@@ -1,12 +1,12 @@
-package com.dzhtv.rickandmortylibrary.ui.main
+package com.dzhtv.rickandmortylibrary.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.dzhtv.rickandmortylibrary.ui.character_list.CharacterListFragment
 import com.dzhtv.rickandmortylibrary.R
-import com.dzhtv.rickandmortylibrary.base.BaseViewModel
-import com.dzhtv.rickandmortylibrary.ui.character_list.CharacterViewModel
+import com.dzhtv.rickandmortylibrary.presentation.base.BaseViewModel
+import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

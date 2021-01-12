@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary.model
+package com.dzhtv.rickandmortylibrary.data.model
 
 data class Character(
     val created: String?,

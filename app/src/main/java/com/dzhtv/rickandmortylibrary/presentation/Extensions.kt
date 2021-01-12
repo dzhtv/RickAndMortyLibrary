@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary
+package com.dzhtv.rickandmortylibrary.presentation
 
 import android.content.Context
 import android.view.View
@@ -25,8 +25,4 @@ fun <T>Iterable<T>.merge(collection: Iterable<T>): List<T> {
     mutable.addAll(this)
     mutable.addAll(collection)
     return mutable.toList()
-}
-
-fun <T>fetchAsync(block: suspend () -> T) {
-
 }

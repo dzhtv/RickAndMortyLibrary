@@ -1,7 +1,6 @@
-package com.dzhtv.rickandmortylibrary.network
+package com.dzhtv.rickandmortylibrary.data
 
 import com.dzhtv.rickandmortylibrary.BuildConfig
-import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

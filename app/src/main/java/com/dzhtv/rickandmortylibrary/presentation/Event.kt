@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary
+package com.dzhtv.rickandmortylibrary.presentation
 
 /**
  * Used as a wrapper for data that is exposed via a LiveData that represents an event

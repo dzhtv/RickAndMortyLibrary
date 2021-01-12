@@ -1,7 +1,7 @@
-package com.dzhtv.rickandmortylibrary.network
+package com.dzhtv.rickandmortylibrary.data
 
-import com.dzhtv.rickandmortylibrary.model.BaseResponse
-import com.dzhtv.rickandmortylibrary.model.Character
+import com.dzhtv.rickandmortylibrary.data.model.BaseResponse
+import com.dzhtv.rickandmortylibrary.data.model.Character
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

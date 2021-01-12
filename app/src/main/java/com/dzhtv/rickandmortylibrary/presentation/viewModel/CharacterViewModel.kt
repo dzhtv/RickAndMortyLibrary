@@ -1,17 +1,17 @@
-package com.dzhtv.rickandmortylibrary.ui.character_list
+package com.dzhtv.rickandmortylibrary.presentation.viewModel
 
 import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.dzhtv.rickandmortylibrary.Event
-import com.dzhtv.rickandmortylibrary.adapter.CharacterGridAdapter
-import com.dzhtv.rickandmortylibrary.base.BaseViewModel
-import com.dzhtv.rickandmortylibrary.log
-import com.dzhtv.rickandmortylibrary.merge
-import com.dzhtv.rickandmortylibrary.model.BaseResponse
-import com.dzhtv.rickandmortylibrary.model.Character
-import com.dzhtv.rickandmortylibrary.network.repository.NetworkRepository
+import com.dzhtv.rickandmortylibrary.presentation.Event
+import com.dzhtv.rickandmortylibrary.presentation.adapter.CharacterGridAdapter
+import com.dzhtv.rickandmortylibrary.presentation.base.BaseViewModel
+import com.dzhtv.rickandmortylibrary.presentation.log
+import com.dzhtv.rickandmortylibrary.presentation.merge
+import com.dzhtv.rickandmortylibrary.data.model.BaseResponse
+import com.dzhtv.rickandmortylibrary.data.model.Character
+import com.dzhtv.rickandmortylibrary.data.repository.NetworkRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch

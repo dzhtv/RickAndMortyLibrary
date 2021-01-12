@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary.network
+package com.dzhtv.rickandmortylibrary.data
 
 import android.content.Context
 import com.bumptech.glide.Glide

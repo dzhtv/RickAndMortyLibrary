@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary.base
+package com.dzhtv.rickandmortylibrary.presentation.base
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*

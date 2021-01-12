@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary.model
+package com.dzhtv.rickandmortylibrary.data.model
 
 enum class CharacterStatus(serializeStatus: String) {
     ALIVE("alive"), DEAD("dead"), UNKNOWN("unknown")

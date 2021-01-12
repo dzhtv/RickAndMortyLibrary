@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary.model
+package com.dzhtv.rickandmortylibrary.data.model
 
 import com.google.gson.annotations.SerializedName
 

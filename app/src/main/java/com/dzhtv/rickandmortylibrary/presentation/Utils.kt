@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary
+package com.dzhtv.rickandmortylibrary.presentation
 
 import android.util.Log
 

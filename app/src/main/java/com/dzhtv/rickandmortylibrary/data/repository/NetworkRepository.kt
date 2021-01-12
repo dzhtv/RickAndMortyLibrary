@@ -1,9 +1,9 @@
-package com.dzhtv.rickandmortylibrary.network.repository
+package com.dzhtv.rickandmortylibrary.data.repository
 
-import com.dzhtv.rickandmortylibrary.model.BaseResponse
-import com.dzhtv.rickandmortylibrary.model.Character
-import com.dzhtv.rickandmortylibrary.model.CharacterGender
-import com.dzhtv.rickandmortylibrary.model.CharacterStatus
+import com.dzhtv.rickandmortylibrary.data.model.BaseResponse
+import com.dzhtv.rickandmortylibrary.data.model.Character
+import com.dzhtv.rickandmortylibrary.data.model.CharacterGender
+import com.dzhtv.rickandmortylibrary.data.model.CharacterStatus
 
 interface NetworkRepository {
 

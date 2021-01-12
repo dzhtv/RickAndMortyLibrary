@@ -1,11 +1,11 @@
-package com.dzhtv.rickandmortylibrary.base
+package com.dzhtv.rickandmortylibrary.presentation.base
 
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.dzhtv.rickandmortylibrary.R
-import com.dzhtv.rickandmortylibrary.ui.character_list.CharacterViewModel
-import com.dzhtv.rickandmortylibrary.ui.main.MainActivity
+import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
+import com.dzhtv.rickandmortylibrary.presentation.ui.MainActivity
 import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment : Fragment() {

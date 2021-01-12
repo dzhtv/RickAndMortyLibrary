@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary.adapter
+package com.dzhtv.rickandmortylibrary.presentation.adapter
 
 import android.content.Context
 import android.view.GestureDetector
