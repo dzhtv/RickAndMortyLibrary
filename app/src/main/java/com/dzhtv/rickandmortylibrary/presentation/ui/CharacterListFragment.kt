@@ -56,17 +56,6 @@ class CharacterListFragment : BaseFragment() {
                 }
             }))
         }
-        binding.recyclerView.layoutManager = GridLayoutManager(requireActivity(), 2)
-        binding.recyclerView.adapter = characterViewModel.getCharacterAdapter()
-        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1)) {
-                    characterViewModel.onScrolledRecyclerToEnd()
-                }
-            }
-        })
-
         characterViewModel.errorMessage.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let { text ->
                 showSnackbar(binding.recyclerView, text)

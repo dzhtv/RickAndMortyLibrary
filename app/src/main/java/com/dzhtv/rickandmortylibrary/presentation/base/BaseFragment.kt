@@ -31,9 +31,9 @@ abstract class BaseFragment : Fragment() {
     }
 
     protected fun provideCharacterViewModel(): CharacterViewModel {
-        val cc = requireActivity()
-        if (cc is MainActivity) {
-            return cc.getCharacterViewModel() as CharacterViewModel
+        val context = requireActivity()
+        if (context is MainActivity) {
+            return context.getCharacterViewModel() as CharacterViewModel
         } else {
             throw IllegalArgumentException("not find view model")
         }
