@@ -1,7 +1,8 @@
 package com.dzhtv.rickandmortylibrary.data
 
-import com.dzhtv.rickandmortylibrary.data.model.BaseResponse
 import com.dzhtv.rickandmortylibrary.data.model.Character
+import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
+import com.dzhtv.rickandmortylibrary.data.model.ResultWrapper
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,12 +18,12 @@ interface CharacterService {
         @Query("species") species: String? = null,
         @Query("type") type: String? = null,
         @Query("gender") gender: String? = null
-    ): Response<BaseResponse<Character>>
+    ): CharacterResponse
 
     @GET("character/{id}")
-    suspend fun getCharacterById(@Path("id") id: Int): Response<Character>
+    suspend fun getCharacterById(@Path("id") id: Int): Character
 
     @GET("character/{id}")
-    suspend fun getCharacterByIdList(@Path("id") idList: String): Response<List<Character>?>
+    suspend fun getCharacterByIdList(@Path("id") idList: String): List<Character>
 
 }

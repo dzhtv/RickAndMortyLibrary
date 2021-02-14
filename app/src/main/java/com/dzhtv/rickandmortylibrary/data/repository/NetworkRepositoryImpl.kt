@@ -1,14 +1,15 @@
 package com.dzhtv.rickandmortylibrary.data.repository
 
-import com.dzhtv.rickandmortylibrary.data.model.BaseResponse
-import com.dzhtv.rickandmortylibrary.data.model.Character
-import com.dzhtv.rickandmortylibrary.data.model.CharacterGender
-import com.dzhtv.rickandmortylibrary.data.model.CharacterStatus
 import com.dzhtv.rickandmortylibrary.data.CharacterService
+import com.dzhtv.rickandmortylibrary.data.model.*
+import com.dzhtv.rickandmortylibrary.data.safeApiCall
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class NetworkRepositoryImpl @Inject constructor(
-    private val client: CharacterService
+    private val client: CharacterService,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : NetworkRepository {
 
     override suspend fun getCharacters(
@@ -18,15 +19,21 @@ class NetworkRepositoryImpl @Inject constructor(
         species: String?,
         type: String?,
         gender: CharacterGender?
-    ): BaseResponse<Character>? {
-        return client.getCharacters(page = page).body()
+    ): ResultWrapper<CharacterResponse> {
+        return safeApiCall(dispatcher) {
+            client.getCharacters(page = page)
+        }
     }
 
-    override suspend fun getCharacter(id: Int): Character? {
-        return client.getCharacterById(id).body()
+    override suspend fun getCharacter(id: Int): ResultWrapper<Character> {
+       return safeApiCall(dispatcher) {
+           client.getCharacterById(id)
+       }
     }
 
-    override suspend fun getCharacters(idList: Array<Int>): List<Character>? {
-        return client.getCharacterByIdList(idList.toString()).body()
+    override suspend fun getCharacters(idList: Array<Int>): ResultWrapper<List<Character>> {
+        return safeApiCall(dispatcher) {
+            client.getCharacterByIdList(idList.toString())
+        }
     }
 }

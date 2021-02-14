@@ -2,13 +2,12 @@ package com.dzhtv.rickandmortylibrary.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class BaseResponse<T>(
+
+data class CharacterResponse(
     @SerializedName("info")
     val info: Info?,
     @SerializedName("results")
-    val results: List<T>?,
-    @SerializedName("error")
-    val error: String? = null
+    val results: List<Character>?
 )
 
 data class Info(
@@ -17,3 +16,5 @@ data class Info(
     val pages: Int?,
     val prev: String?
 )
+
+data class ErrorResponse(val message: String)

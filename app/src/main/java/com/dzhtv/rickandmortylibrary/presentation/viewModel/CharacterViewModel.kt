@@ -9,11 +9,10 @@ import com.dzhtv.rickandmortylibrary.presentation.adapter.CharacterGridAdapter
 import com.dzhtv.rickandmortylibrary.presentation.base.BaseViewModel
 import com.dzhtv.rickandmortylibrary.presentation.log
 import com.dzhtv.rickandmortylibrary.presentation.merge
-import com.dzhtv.rickandmortylibrary.data.model.BaseResponse
 import com.dzhtv.rickandmortylibrary.data.model.Character
+import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
+import com.dzhtv.rickandmortylibrary.data.model.ResultWrapper
 import com.dzhtv.rickandmortylibrary.data.repository.NetworkRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class CharacterViewModel @ViewModelInject constructor(
@@ -54,17 +53,25 @@ class CharacterViewModel @ViewModelInject constructor(
     private fun loadCharacters(page: Int? = null) {
         isLoadingProgress.value = View.VISIBLE
         coroutineScope.launch {
-            val deferred = async(Dispatchers.IO) {
-                networkRepo.getCharacters(page, null)
+            val result = networkRepo.getCharacters(page, null)
+            when(result) {
+                is ResultWrapper.NetworkError -> {
+
+                }
+                is ResultWrapper.GenericError -> {
+                    result.error?.message?.let {
+                        _errorMessage.value = Event(it)
+                    }
+                }
+                is ResultWrapper.Success -> {
+                    handleResponse(result.value)
+                }
             }
-            deferred.await()?.let {
-                handleResponse(it)
-            }
-            isLoadingProgress.value = View.GONE
+            isLoadingProgress.postValue(View.GONE)
         }
     }
 
-    private fun handleResponse(result: BaseResponse<Character>) {
+    private fun handleResponse(result: CharacterResponse) {
         if (characters.value != null && !result.results.isNullOrEmpty()) {
             characters.value = characters.value?.merge(result.results)
             updateCharacterAdapter(characters.value!!)

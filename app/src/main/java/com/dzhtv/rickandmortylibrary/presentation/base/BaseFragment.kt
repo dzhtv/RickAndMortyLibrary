@@ -2,6 +2,7 @@ package com.dzhtv.rickandmortylibrary.presentation.base
 
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.AttrRes
 import androidx.fragment.app.Fragment
 import com.dzhtv.rickandmortylibrary.R
 import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
@@ -22,9 +23,9 @@ abstract class BaseFragment : Fragment() {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
     }
 
-    protected fun showSnackbarRetryAction(view: View, message: String, block: ()-> Unit) {
+    protected fun showSnackbarRetryAction(view: View, message: String, actionText: Int, block: ()-> Unit) {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-            .setAction(requireActivity().getString(R.string.retry)) {
+            .setAction(requireActivity().getString(actionText)) {
                 block.invoke()
             }
             .show()
