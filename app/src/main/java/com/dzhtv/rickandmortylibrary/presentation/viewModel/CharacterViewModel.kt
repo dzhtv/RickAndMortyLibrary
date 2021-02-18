@@ -97,15 +97,15 @@ class CharacterViewModel @ViewModelInject constructor(
 
     fun clickOnPosition(position: Int) {
         characters.value?.get(position)?.let { item ->
-            character.value = item
-            characterImageUrl.value = item.image
+            character.postValue(item)
+            characterImageUrl.postValue(item.image)
         }
     }
 
     override fun onCleared() {
         super.onCleared()
-        characters.value = null
-        character.value = null
-        characterImageUrl.value = null
+        characters.postValue(null)
+        character.postValue(null)
+        characterImageUrl.postValue(null)
     }
 }

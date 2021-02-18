@@ -13,6 +13,7 @@ import com.dzhtv.rickandmortylibrary.presentation.adapter.OnItemClickListener
 import com.dzhtv.rickandmortylibrary.presentation.adapter.RecyclerItemClickListener
 import com.dzhtv.rickandmortylibrary.presentation.base.BaseFragment
 import com.dzhtv.rickandmortylibrary.databinding.FragmentCharacterListBinding
+import com.dzhtv.rickandmortylibrary.presentation.showSnackbar
 import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
 
 class CharacterListFragment : BaseFragment() {
@@ -58,7 +59,7 @@ class CharacterListFragment : BaseFragment() {
         }
         characterViewModel.errorMessage.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let { text ->
-                showSnackbar(binding.recyclerView, text)
+                binding.recyclerView.showSnackbar(text)
             }
         })
         characterViewModel.isLoadingProgress.observe(viewLifecycleOwner, Observer {

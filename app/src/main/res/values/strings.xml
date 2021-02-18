@@ -1,5 +1,5 @@
 <resources>
-    <string name="retry">RETRY</string>
+    <string name="retry">Retry</string>
     <string name="species">Species:</string>
     <string name="gender">Gender:</string>
     <string name="location">Location:</string>

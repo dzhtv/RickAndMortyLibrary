@@ -12,7 +12,9 @@
 
     </style>
 
-    <style name="ProgressBarRed" parent="Theme.AppCompat.Light">
-        <item name="colorAccent">@color/red_imperial</item>
+    <style name="ProgressBarWhite" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:indeterminateTint">@color/white</item>
     </style>
 </resources>

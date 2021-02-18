@@ -10,8 +10,7 @@ import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
 
 class CharacterDetailFragment : BaseFragment() {
 
-    private var _binding: FragmentCharacterBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentCharacterBinding
     private lateinit var characterViewModel: CharacterViewModel
 
     override fun onCreateView(
@@ -19,9 +18,15 @@ class CharacterDetailFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCharacterBinding.inflate(inflater, container, false)
-        characterViewModel = provideCharacterViewModel()
-        binding.viewModel = characterViewModel
+        binding = FragmentCharacterBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (this::binding.isInitialized) {
+            characterViewModel = provideCharacterViewModel()
+            binding.viewModel = characterViewModel
+        }
     }
 }
