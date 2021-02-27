@@ -35,7 +35,11 @@ class CharacterListFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         characterViewModel.fetchCharacters()
+        initUI()
+        observeUI()
+    }
 
+    private fun initUI() {
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(requireActivity(), 2)
             adapter = characterViewModel.getCharacterAdapter()
@@ -57,6 +61,9 @@ class CharacterListFragment : BaseFragment() {
                 }
             }))
         }
+    }
+
+    private fun observeUI() {
         characterViewModel.errorMessage.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let { text ->
                 binding.recyclerView.showSnackbar(text)
@@ -73,4 +80,5 @@ class CharacterListFragment : BaseFragment() {
             }
         })
     }
+
 }

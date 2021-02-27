@@ -1,14 +1,12 @@
 package com.dzhtv.rickandmortylibrary.data
 
-import com.dzhtv.rickandmortylibrary.data.model.Character
-import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
-import com.dzhtv.rickandmortylibrary.data.model.ResultWrapper
+import com.dzhtv.rickandmortylibrary.data.model.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface CharacterService {
+interface RemoteService {
 
     @GET("character/")
     suspend fun getCharacters(
@@ -26,4 +24,12 @@ interface CharacterService {
     @GET("character/{id}")
     suspend fun getCharacterByIdList(@Path("id") idList: String): List<Character>
 
+    @GET("episode/")
+    suspend fun getEpisodes(
+        @Query("name") name: String? = null,
+        @Query("episode") episodeCode: String? = null
+    ): EpisodeResponse
+
+    @GET("episode/{id}")
+    suspend fun getEpisode(@Path("id") id: Int): Episode
 }
