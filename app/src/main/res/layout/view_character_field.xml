@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="@color/gray"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/picture"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        android:ellipsize="end"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_arrow_right_48"
+        android:visibility="gone"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/picture"
+        android:layout_marginTop="1dp"
+        android:textSize="22sp"
+        android:textStyle="normal"
+        android:textColor="@color/white"
+        android:visibility="visible"
+        android:maxLines="2"
+        android:ellipsize="end"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/subheader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/picture"
+        android:layout_marginTop="1dp"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:maxLines="1"
+        android:ellipsize="end"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

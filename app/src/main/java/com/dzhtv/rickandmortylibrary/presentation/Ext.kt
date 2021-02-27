@@ -6,7 +6,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import androidx.appcompat.widget.AppCompatImageView
 import com.dzhtv.rickandmortylibrary.R
+import com.dzhtv.rickandmortylibrary.data.GlideApp
 import com.google.android.material.snackbar.Snackbar
 import java.lang.RuntimeException
 
@@ -46,6 +48,13 @@ fun View.showSnackbarWithRetryAction(
     Snackbar.make(this, message, duration).setAction(actionText) {
         block.invoke()
     }.show()
+}
+
+fun AppCompatImageView.loadImage(url: String) {
+    GlideApp.with(this.context)
+        .load(url)
+        .centerCrop()
+        .into(this)
 }
 
 fun <T> Iterable<T>.merge(collection: Iterable<T>): List<T> {

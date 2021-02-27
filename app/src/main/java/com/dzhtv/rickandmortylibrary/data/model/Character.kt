@@ -2,7 +2,7 @@ package com.dzhtv.rickandmortylibrary.data.model
 
 data class Character(
     val created: String?,
-    val episode: List<String>?,
+    val episode: List<String>,
     val gender: String?,
     val id: Int,
     val image: String?,

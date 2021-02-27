@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dzhtv.rickandmortylibrary.data.GlideApp
 import com.dzhtv.rickandmortylibrary.databinding.ItemCharacterBinding
 import com.dzhtv.rickandmortylibrary.data.model.Character
+import com.dzhtv.rickandmortylibrary.presentation.loadImage
 import javax.inject.Inject
 
 
@@ -19,12 +20,12 @@ class CharacterGridAdapter @Inject constructor(private val context: Context) :
         stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
     }
 
-    fun refreshItems(collections: List<Character>) {
+    fun addItems(collections: List<Character>) {
         this.items.addAll(collections)
         notifyDataSetChanged()
     }
 
-    fun addItems(collections: List<Character>) {
+    fun refreshItems(collections: List<Character>) {
         this.items.apply {
             removeAll(this)
             addAll(collections)
@@ -37,12 +38,11 @@ class CharacterGridAdapter @Inject constructor(private val context: Context) :
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         val data = items.toList()[position]
-        holder.binding.title.text = data.name
-        data.image?.let { url ->
-            GlideApp.with(context)
-                .load(url)
-                .centerCrop()
-                .into(holder.binding.imageView)
+        holder.binding.apply {
+            title.text = data.name
+            data.image?.let { url ->
+                imageView.loadImage(url)
+            }
         }
     }
 
