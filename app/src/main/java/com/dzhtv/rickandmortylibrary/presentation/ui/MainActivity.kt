@@ -12,11 +12,10 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
 
-//   private val characterViewModel: CharacterViewModel by viewModels()
     lateinit var activityComponent: ActivityComponent
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var characterViewModel: CharacterViewModel
+    private lateinit var characterViewModel: CharacterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +31,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    fun getCharacterViewModel(): BaseViewModel {
+    fun getCharacterViewModel(): CharacterViewModel {
         return characterViewModel
     }
 }

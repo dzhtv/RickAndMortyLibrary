@@ -28,8 +28,12 @@ class CharacterListFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
-        characterViewModel = provideCharacterViewModel()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        characterViewModel = provideCharacterViewModel()
     }
 
     override fun onStart() {

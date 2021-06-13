@@ -6,7 +6,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.dzhtv.rickandmortylibrary.R
-import com.dzhtv.rickandmortylibrary.data.GlideApp
+import com.dzhtv.rickandmortylibrary.di.GlideApp
 
 
 object BindingAdapter {
