@@ -2,15 +2,17 @@ package com.dzhtv.rickandmortylibrary.presentation.viewModel
 
 import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.dzhtv.rickandmortylibrary.data.model.*
+import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
+import com.dzhtv.rickandmortylibrary.data.model.Episode
+import com.dzhtv.rickandmortylibrary.data.model.ResultWrapper
+import com.dzhtv.rickandmortylibrary.data.model.Character
+import com.dzhtv.rickandmortylibrary.data.repository.RemoteRepository
 import com.dzhtv.rickandmortylibrary.presentation.Event
 import com.dzhtv.rickandmortylibrary.presentation.adapter.CharacterGridAdapter
 import com.dzhtv.rickandmortylibrary.presentation.base.BaseViewModel
-import com.dzhtv.rickandmortylibrary.presentation.log
 import com.dzhtv.rickandmortylibrary.presentation.merge
-import com.dzhtv.rickandmortylibrary.data.repository.RemoteRepository
+import com.dzhtv.rickandmortylibrary.toLog
 import kotlinx.coroutines.launch
 
 class CharacterViewModel @ViewModelInject constructor(
@@ -18,25 +20,21 @@ class CharacterViewModel @ViewModelInject constructor(
     private val adapter: CharacterGridAdapter
 ) : BaseViewModel() {
 
-    private val _errorMessage = MutableLiveData<Event<String>>()
-    val errorMessage: LiveData<Event<String>>
-        get() = _errorMessage
-    private val _scrollDown = MutableLiveData<Event<Unit>>()
-    val scrollDown: LiveData<Event<Unit>>
-        get() = _scrollDown
-    var isLoadingProgress = MutableLiveData(View.GONE)
+    val errorMessage = MutableLiveData<Event<String>>()
+    val scrollDown = MutableLiveData<Event<Unit>>()
+    var isLoadingProgress = MutableLiveData<Event<Int>>()
+    val character =  MutableLiveData<Character>()
+    val characterImageUrl = MutableLiveData<String>()
+    val characterEpisodeStart = MutableLiveData<Episode>()
     private var characters = MutableLiveData(listOf<Character>())
     private var nextPage: Int? = null
-    val character: MutableLiveData<Character> = MutableLiveData()
-    val characterImageUrl: MutableLiveData<String> = MutableLiveData()
-    val characterEpisodeStart: MutableLiveData<Episode> = MutableLiveData()
 
     init {
-        log("init view model")
+        "init viewModel".toLog()
     }
     override fun handlerError(t: Throwable) {
         t.message?.let {
-            _errorMessage.value = Event(it)
+            errorMessage.postValue(Event(it))
         }
     }
 
@@ -50,7 +48,7 @@ class CharacterViewModel @ViewModelInject constructor(
     }
 
     private fun loadCharacters(page: Int? = null) {
-        isLoadingProgress.value = View.VISIBLE
+        isLoadingProgress.postValue(Event(View.VISIBLE))
         coroutineScope.launch {
             val result = networkRepo.getCharacters(page, null)
             when(result) {
@@ -59,14 +57,14 @@ class CharacterViewModel @ViewModelInject constructor(
                 }
                 is ResultWrapper.GenericError -> {
                     result.error?.message?.let {
-                        _errorMessage.value = Event(it)
+                        errorMessage.postValue(Event(it))
                     }
                 }
                 is ResultWrapper.Success -> {
                     handleCharacterResponse(result.value)
                 }
             }
-            isLoadingProgress.postValue(View.GONE)
+            isLoadingProgress.postValue(Event(View.GONE))
         }
     }
 
@@ -76,7 +74,7 @@ class CharacterViewModel @ViewModelInject constructor(
             updateCharacterAdapter(characters.value!!)
         }
         if (nextPage != null)
-            _scrollDown.value = Event(Unit)
+            scrollDown.postValue(Event(Unit))
         nextPage = result.info?.next?.substringAfterLast("page=")?.toInt()
     }
 
@@ -109,7 +107,7 @@ class CharacterViewModel @ViewModelInject constructor(
                 }
                 is ResultWrapper.GenericError -> {
                     result.error?.message?.let {
-                        _errorMessage.value = Event(it)
+                        errorMessage.postValue(Event(it))
                     }
                 }
             }
@@ -121,8 +119,14 @@ class CharacterViewModel @ViewModelInject constructor(
     }
 
     fun onScrolledRecyclerToEnd() {
-        if (nextPage != null && isLoadingProgress.value == View.GONE)
-            loadCharacters(nextPage)
+        if (nextPage == null)
+            return
+        isLoadingProgress.value?.let { event ->
+            event.getContentIfNotHandled()?.let { isLoading ->
+                if (isLoading == View.GONE)
+                    loadCharacters(nextPage)
+            }
+        } ?: loadCharacters(nextPage)
     }
 
     fun clickOnPosition(position: Int) {
@@ -139,9 +143,5 @@ class CharacterViewModel @ViewModelInject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        characters.postValue(null)
-        character.postValue(null)
-        characterImageUrl.postValue(null)
-        characterEpisodeStart.postValue(null)
     }
 }

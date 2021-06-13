@@ -69,8 +69,10 @@ class CharacterListFragment : BaseFragment() {
                 binding.recyclerView.showSnackbar(text)
             }
         })
-        characterViewModel.isLoadingProgress.observe(viewLifecycleOwner, Observer {
-            binding.progressBar.visibility = it
+        characterViewModel.isLoadingProgress.observe(viewLifecycleOwner, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                binding.progressBar.visibility = it
+            }
         })
         characterViewModel.scrollDown.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let {

@@ -65,7 +65,6 @@ class CharacterItemFieldView : FrameLayout {
         this.title.apply {
             setText(text)
             setTextSize(textSize)
-//            setTextColor(ContextCompat.getColor(context, color))
             if (isVisible) visible() else gone()
         }
     }
@@ -78,7 +77,6 @@ class CharacterItemFieldView : FrameLayout {
         this.header.apply {
             setText(text)
             setTextSize(textSize)
-//            setTextColor(ContextCompat.getColor(context, color))
             if (isVisible) visible() else gone()
         }
     }
@@ -91,7 +89,6 @@ class CharacterItemFieldView : FrameLayout {
         this.subheader.apply {
             setText(text)
             setTextSize(textSize)
-//            setTextColor(ContextCompat.getColor(context, color))
             if (isVisible) visible() else gone()
         }
     }

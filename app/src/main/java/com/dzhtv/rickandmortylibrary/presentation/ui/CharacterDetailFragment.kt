@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.dzhtv.rickandmortylibrary.R
 import com.dzhtv.rickandmortylibrary.databinding.FragmentCharacterDetailBinding
-import com.dzhtv.rickandmortylibrary.presentation.base.BaseActivity
 import com.dzhtv.rickandmortylibrary.presentation.base.BaseFragment
-import com.dzhtv.rickandmortylibrary.presentation.log
 import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
 import com.dzhtv.rickandmortylibrary.presentation.visible
 
@@ -43,13 +41,13 @@ class CharacterDetailFragment : BaseFragment() {
 
         characterViewModel.characterEpisodeStart.observe(viewLifecycleOwner, Observer {
             it?.let { episode ->
-                binding.episodeField?.let { field ->
-                    field.setTitle(appContext().getString(R.string.first_appearance))
-                    field.setHeaderText(episode.name)
-                    field.setSubheader(episode.episode)
-                    field.setPicture(isVisible = true)
-                    field.visible()
-                    field.setOnClickListener {
+                binding.episodeField.apply {
+                    setTitle(appContext().getString(R.string.first_appearance))
+                    setHeaderText(episode.name)
+                    setSubheader(episode.episode)
+                    setPicture(isVisible = true)
+                    visible()
+                    setOnClickListener {
                         if (requireActivity() is MainActivity) {
                             (requireActivity() as MainActivity).replaceFragment(EpisodeDetailFragment())
                         }

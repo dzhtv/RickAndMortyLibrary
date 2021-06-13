@@ -27,8 +27,4 @@ class MainActivity : BaseActivity() {
     fun getCharacterViewModel(): BaseViewModel {
         return characterViewModel
     }
-
-    fun replaceFragment(fragment: BaseFragment) {
-        replaceFragmentFromBackStack(fragment = fragment)
-    }
 }
