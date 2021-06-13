@@ -1,14 +1,21 @@
 package com.dzhtv.rickandmortylibrary.data.repository
 
-import com.dzhtv.rickandmortylibrary.data.RemoteService
-import com.dzhtv.rickandmortylibrary.data.model.*
+import com.dzhtv.rickandmortylibrary.data.RickAndMortyApi
+import com.dzhtv.rickandmortylibrary.data.model.Character
+import com.dzhtv.rickandmortylibrary.data.model.CharacterGender
+import com.dzhtv.rickandmortylibrary.data.model.CharacterStatus
+import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
+import com.dzhtv.rickandmortylibrary.data.model.EpisodeResponse
+import com.dzhtv.rickandmortylibrary.data.model.Episode
+import com.dzhtv.rickandmortylibrary.data.model.ResultWrapper
 import com.dzhtv.rickandmortylibrary.data.safeApiCall
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+
 import javax.inject.Inject
 
 class RemoteRepositoryImpl @Inject constructor(
-    private val client: RemoteService,
+    private val client: RickAndMortyApi,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : RemoteRepository {
 

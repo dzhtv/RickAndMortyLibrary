@@ -1,7 +1,6 @@
 package com.dzhtv.rickandmortylibrary.presentation.viewModel
 
 import android.view.View
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
 import com.dzhtv.rickandmortylibrary.data.model.Episode
@@ -14,8 +13,9 @@ import com.dzhtv.rickandmortylibrary.presentation.base.BaseViewModel
 import com.dzhtv.rickandmortylibrary.presentation.merge
 import com.dzhtv.rickandmortylibrary.toLog
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharacterViewModel @ViewModelInject constructor(
+class CharacterViewModel @Inject constructor(
     private val networkRepo: RemoteRepository,
     private val adapter: CharacterGridAdapter
 ) : BaseViewModel() {

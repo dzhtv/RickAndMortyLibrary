@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
+//apply plugin: 'kotlin-parcelize'
 
 android {
     compileSdkVersion 30
@@ -53,10 +52,8 @@ android {
         freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.FlowPreview"
     }
     buildFeatures {
+        viewBinding = true
         dataBinding = true
-    }
-    androidExtensions {
-        experimental = true
     }
     packagingOptions {
         exclude 'META-INF/atomicfu.kotlin_module'
@@ -74,7 +71,6 @@ dependencies {
 
     // architecture components
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion"
@@ -100,11 +96,14 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
     //di
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
-    kapt "androidx.hilt:hilt-compiler:$hiltViewModelVersion"
-    kapt "com.squareup.inject:assisted-inject-processor-dagger2:$assistedInjectVersion"
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltViewModelVersion"
+//    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+//    kapt "androidx.hilt:hilt-compiler:$hiltViewModelVersion"
+//    kapt "com.squareup.inject:assisted-inject-processor-dagger2:$assistedInjectVersion"
+//    implementation "com.google.dagger:hilt-android:$hiltVersion"
+//    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltViewModelVersion"
+
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     // glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"

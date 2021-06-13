@@ -14,13 +14,13 @@ import javax.net.ssl.X509TrustManager
 class NetworkFactory {
     object RickAndMortyService {
 
-        fun createService(): RemoteService {
+        fun createService(): RickAndMortyApi {
             val client = getUnsafeOkHttpClient()
             return Retrofit.Builder().apply {
                 baseUrl(BuildConfig.BASE_URL)
                 addConverterFactory(GsonConverterFactory.create())
                 client(client)
-            }.build().create(RemoteService::class.java)
+            }.build().create(RickAndMortyApi::class.java)
         }
 
         /**

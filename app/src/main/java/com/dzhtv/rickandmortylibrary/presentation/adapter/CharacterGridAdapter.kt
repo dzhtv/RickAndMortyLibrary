@@ -1,6 +1,5 @@
 package com.dzhtv.rickandmortylibrary.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,8 +8,7 @@ import com.dzhtv.rickandmortylibrary.data.model.Character
 import com.dzhtv.rickandmortylibrary.presentation.loadImage
 import javax.inject.Inject
 
-
-class CharacterGridAdapter @Inject constructor(private val context: Context) :
+class CharacterGridAdapter @Inject constructor() :
     RecyclerView.Adapter<CharacterGridAdapter.CharacterViewHolder>() {
 
     private var items: MutableList<Character> = mutableListOf()

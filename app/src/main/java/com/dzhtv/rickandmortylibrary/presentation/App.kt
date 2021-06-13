@@ -2,9 +2,15 @@ package com.dzhtv.rickandmortylibrary.presentation
 
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.dzhtv.rickandmortylibrary.di.ApplicationComponent
+import com.dzhtv.rickandmortylibrary.di.DaggerApplicationComponent
 
-@HiltAndroidApp
 class App : Application() {
 
+    lateinit var appComponent: ApplicationComponent
+
+    override fun onCreate() {
+        super.onCreate()
+        appComponent = DaggerApplicationComponent.builder().build()
+    }
 }
