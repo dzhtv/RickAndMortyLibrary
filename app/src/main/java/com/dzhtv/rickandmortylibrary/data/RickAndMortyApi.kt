@@ -1,12 +1,14 @@
 package com.dzhtv.rickandmortylibrary.data
 
-import com.dzhtv.rickandmortylibrary.data.model.*
-import retrofit2.Response
+import com.dzhtv.rickandmortylibrary.data.model.Character
+import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
+import com.dzhtv.rickandmortylibrary.data.model.EpisodeResponse
+import com.dzhtv.rickandmortylibrary.data.model.Episode
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface RemoteService {
+interface RickAndMortyApi {
 
     @GET("character/")
     suspend fun getCharacters(

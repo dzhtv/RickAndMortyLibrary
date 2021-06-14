@@ -1,7 +1,12 @@
 package com.dzhtv.rickandmortylibrary.data.repository
 
-
-import com.dzhtv.rickandmortylibrary.data.model.*
+import com.dzhtv.rickandmortylibrary.data.model.Character
+import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
+import com.dzhtv.rickandmortylibrary.data.model.CharacterStatus
+import com.dzhtv.rickandmortylibrary.data.model.CharacterGender
+import com.dzhtv.rickandmortylibrary.data.model.Episode
+import com.dzhtv.rickandmortylibrary.data.model.EpisodeResponse
+import com.dzhtv.rickandmortylibrary.data.model.ResultWrapper
 
 interface RemoteRepository {
 

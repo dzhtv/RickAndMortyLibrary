@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
 import com.dzhtv.rickandmortylibrary.R
-import com.dzhtv.rickandmortylibrary.data.GlideApp
+import com.dzhtv.rickandmortylibrary.di.GlideApp
 import com.google.android.material.snackbar.Snackbar
 import java.lang.RuntimeException
 
