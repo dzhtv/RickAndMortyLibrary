@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary.presentation.ui
+package com.dzhtv.rickandmortylibrary.presentation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dzhtv.rickandmortylibrary.databinding.FragmentEpisodeDetailBinding
-import com.dzhtv.rickandmortylibrary.presentation.base.BaseFragment
 
 class EpisodeDetailFragment : BaseFragment() {
 

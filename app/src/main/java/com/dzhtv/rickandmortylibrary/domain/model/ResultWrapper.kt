@@ -1,4 +1,5 @@
-package com.dzhtv.rickandmortylibrary.data.model
+package com.dzhtv.rickandmortylibrary.domain.model
+
 
 sealed class ResultWrapper<out T> {
     data class Success<out T>(val value: T): ResultWrapper<T>()

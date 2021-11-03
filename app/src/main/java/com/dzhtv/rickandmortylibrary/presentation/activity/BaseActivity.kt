@@ -1,8 +1,9 @@
-package com.dzhtv.rickandmortylibrary.presentation.base
+package com.dzhtv.rickandmortylibrary.presentation.activity
 
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import com.dzhtv.rickandmortylibrary.R
+import com.dzhtv.rickandmortylibrary.presentation.fragment.BaseFragment
 
 abstract class BaseActivity : AppCompatActivity() {
 

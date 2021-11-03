@@ -1,11 +1,10 @@
-package com.dzhtv.rickandmortylibrary.presentation.ui
+package com.dzhtv.rickandmortylibrary.presentation.activity
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.dzhtv.rickandmortylibrary.R
-import com.dzhtv.rickandmortylibrary.presentation.base.BaseActivity
-import com.dzhtv.rickandmortylibrary.presentation.base.BaseFragment
-import com.dzhtv.rickandmortylibrary.presentation.base.BaseViewModel
+import com.dzhtv.rickandmortylibrary.presentation.viewModel.BaseViewModel
+import com.dzhtv.rickandmortylibrary.presentation.fragment.CharacterListFragment
 import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
 
 import dagger.hilt.android.AndroidEntryPoint

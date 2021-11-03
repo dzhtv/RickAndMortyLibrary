@@ -29,7 +29,7 @@ class GlideUnsafeModule : AppGlideModule() {
         registry.replace(
             GlideUrl::class.java,
             InputStream::class.java,
-            OkHttpUrlLoader.Factory(getUnsafeOkHttpClient())
+            OkHttpUrlLoader.Factory(provideOkHttpClientUnsaved())
         )
     }
 
@@ -38,7 +38,7 @@ class GlideUnsafeModule : AppGlideModule() {
     }
 
     @Provides
-    fun getUnsafeOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClientUnsaved(): OkHttpClient {
         // Create a trust manager that does not validate certificate chains
         val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
             override fun checkClientTrusted(

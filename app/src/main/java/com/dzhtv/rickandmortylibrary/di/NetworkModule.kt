@@ -3,8 +3,9 @@ package com.dzhtv.rickandmortylibrary.di
 import com.dzhtv.rickandmortylibrary.BuildConfig
 import com.dzhtv.rickandmortylibrary.presentation.adapter.CharacterGridAdapter
 import com.dzhtv.rickandmortylibrary.data.RickAndMortyApi
-import com.dzhtv.rickandmortylibrary.data.repository.RemoteRepository
-import com.dzhtv.rickandmortylibrary.data.repository.RemoteRepositoryImpl
+import com.dzhtv.rickandmortylibrary.data.source.ApiMapper
+import com.dzhtv.rickandmortylibrary.domain.repository.RickAndMortyRemoteRepository
+import com.dzhtv.rickandmortylibrary.data.source.RickAndMortyRemoteRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +19,7 @@ import javax.inject.Singleton
 @Module(includes = [GlideUnsafeModule::class])
 class NetworkModule {
 
+    @Singleton
     @Provides
     fun provideCharacterService(client: OkHttpClient): RickAndMortyApi {
         return Retrofit.Builder().apply {
@@ -27,9 +29,10 @@ class NetworkModule {
         }.build().create(RickAndMortyApi::class.java)
     }
 
+    @Singleton
     @Provides
-    fun provideNetworkRepository(service: RickAndMortyApi): RemoteRepository {
-        return RemoteRepositoryImpl(service)
+    fun provideNetworkRepository(service: RickAndMortyApi): RickAndMortyRemoteRepository {
+        return RickAndMortyRemoteRepositoryImpl(client = service, mapper = ApiMapper())
     }
 
     @Singleton

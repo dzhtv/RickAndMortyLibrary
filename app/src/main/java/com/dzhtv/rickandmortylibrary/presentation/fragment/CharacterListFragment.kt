@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary.presentation.ui
+package com.dzhtv.rickandmortylibrary.presentation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dzhtv.rickandmortylibrary.R
 import com.dzhtv.rickandmortylibrary.presentation.adapter.OnItemClickListener
 import com.dzhtv.rickandmortylibrary.presentation.adapter.RecyclerItemClickListener
-import com.dzhtv.rickandmortylibrary.presentation.base.BaseFragment
 import com.dzhtv.rickandmortylibrary.databinding.FragmentCharacterListBinding
 import com.dzhtv.rickandmortylibrary.presentation.showSnackbar
 import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
