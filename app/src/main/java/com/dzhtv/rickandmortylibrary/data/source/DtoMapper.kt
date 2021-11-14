@@ -3,10 +3,10 @@ package com.dzhtv.rickandmortylibrary.data.source
 import com.dzhtv.rickandmortylibrary.data.model.*
 import com.dzhtv.rickandmortylibrary.domain.model.*
 
-class ApiMapper {
+class DtoMapper {
 
-    fun createCharacterFromResponse(response: CharacterResponse): Character {
-        return Character(
+    fun createCharacterFromResponse(response: CharacterResponse): CharacterItem {
+        return CharacterItem(
             created = response.created,
             episode = response.episode,
             gender = response.gender,
@@ -22,8 +22,8 @@ class ApiMapper {
         )
     }
 
-    fun createCharacterFilter(response: CharacterFilterResponse): CharacterFilter {
-        return CharacterFilter(
+    fun createCharacterFilter(response: CharacterFilterResponse): Character {
+        return Character(
             info = createRequestInfo(response.info),
             characters = response.results.map { createCharacterFromResponse(it) }
         )
@@ -52,8 +52,8 @@ class ApiMapper {
         )
     }
 
-    fun createCharacterEpisode(response: EpisodeResponse): Episode {
-        return Episode(
+    fun createEpisodeItem(response: EpisodeResponse): EpisodeItem {
+        return EpisodeItem(
             id = response.id,
             name = response.name,
             airDate = response.airDate,
@@ -62,5 +62,9 @@ class ApiMapper {
             url = response.url,
             created = response.created
         )
+    }
+
+    fun createEpisode(info: RequestInfo, items: List<EpisodeItem>): Episode {
+        return Episode(info, items)
     }
 }

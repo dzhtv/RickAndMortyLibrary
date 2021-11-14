@@ -5,39 +5,84 @@ import com.dzhtv.rickandmortylibrary.domain.model.ResultWrapper
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 import java.lang.Exception
 
 open class BaseNetworkRepository {
 
-    suspend fun <T> execute(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): ResultWrapper<T> {
+    suspend fun <T> execute(
+        dispatcher: CoroutineDispatcher,
+        apiCall: suspend () -> Response<T>
+    ): Response<T> {
         return withContext(dispatcher) {
-            try {
-                ResultWrapper.Success(apiCall.invoke())
-            } catch (throwable: Throwable) {
-                when(throwable) {
-                    is IOException -> ResultWrapper.NetworkError
-                    is HttpException -> {
-                        val code = throwable.code()
-                        val errorResponse = convertErrorBody(throwable)
-                        ResultWrapper.GenericError(code, errorResponse)
-                    }
-                    else -> {
-                        ResultWrapper.GenericError(null, null)
-                    }
-                }
-            }
+            apiCall.invoke()
         }
     }
 
-    private fun convertErrorBody(throwable: HttpException): ErrorResponse? {
+    fun <T, K> parseResult(
+        response: Response<T>,
+        mapperCall: (T) -> K
+    ): ResultWrapper<K> {
         return try {
-            throwable.response()?.errorBody()?.string()?.let {
-                return Gson().fromJson(it, ErrorResponse::class.java)
+            if (response.isSuccessful) {
+                ResultWrapper.Success(
+                    mapperCall(response.body()!!)
+                )
+            } else {
+                ResultWrapper.Error(
+                    convertErrorBody(
+                        code = response.code(),
+                        errorBody = response.errorBody()
+                    )
+                )
             }
-        } catch (ex: Exception) {
-            null
+        } catch (t: Throwable) {
+            ResultWrapper.Error(
+                ErrorResponse(message = "Unknown error")
+            )
         }
     }
+
+    private fun convertErrorBody(code: Int, errorBody: ResponseBody?): ErrorResponse {
+        return try {
+            errorBody?.string()?.let {
+                return Gson().fromJson(it, ErrorResponse::class.java)
+            } ?: run {
+                when(code) {
+                    in 400..500 -> {
+                        ErrorResponse("Network error")
+                    }
+                    else -> {
+                        ErrorResponse("Unknown error")
+                    }
+                }
+            }
+        } catch (ex: Exception) {
+            ErrorResponse(message = ex.message ?: "Unknown error")
+        }
+    }
+
+//    suspend fun <T> execute(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): ResultWrapper<T> {
+//        return withContext(dispatcher) {
+//            try {
+//                ResultWrapper.Success(apiCall.invoke())
+//            } catch (throwable: Throwable) {
+//                when(throwable) {
+//                    is IOException -> ResultWrapper.NetworkError
+//                    is HttpException -> {
+//                        val code = throwable.code()
+//                        val errorResponse = convertErrorBody(throwable)
+//                        ResultWrapper.GenericError(code, errorResponse)
+//                    }
+//                    else -> {
+//                        ResultWrapper.GenericError(null, null)
+//                    }
+//                }
+//            }
+//        }
+//    }
+
 }

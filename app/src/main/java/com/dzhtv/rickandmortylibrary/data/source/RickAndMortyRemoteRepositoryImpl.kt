@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class RickAndMortyRemoteRepositoryImpl @Inject constructor(
     private val client: RickAndMortyApi,
-    private val mapper: ApiMapper,
+    private val mapper: DtoMapper,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : RickAndMortyRemoteRepository, BaseNetworkRepository() {
 
@@ -20,35 +20,43 @@ class RickAndMortyRemoteRepositoryImpl @Inject constructor(
         species: String?,
         type: String?,
         gender: CharacterGender?
-    ): ResultWrapper<CharacterFilter> {
-        return execute(dispatcher) {
-            mapper.createCharacterFilter(client.getCharactersByFilter(page = page))
+    ): ResultWrapper<Character> {
+        val response = execute(dispatcher) {
+            client.getCharactersByFilter(page = page)
+        }
+        return parseResult(response) {
+            mapper.createCharacterFilter(it)
         }
     }
 
-    override suspend fun getCharacter(id: Int): ResultWrapper<Character> {
-       return execute(dispatcher) {
-           mapper.createCharacterFromResponse(client.getCharacterById(id))
-       }
-    }
-
-    override suspend fun getCharacters(idList: Array<Int>): ResultWrapper<List<Character>> {
-        return execute(dispatcher) {
-            val response = client.getCharacterByIdList(idList.toString())
-            response.map { mapper.createCharacterFromResponse(it) }
+    override suspend fun getCharacter(id: Int): ResultWrapper<CharacterItem> {
+        val response = client.getCharacterById(id)
+        return parseResult(response) {
+            mapper.createCharacterFromResponse(it)
         }
     }
 
-    override suspend fun getEpisodeList(): ResultWrapper<List<Episode>> {
-        return execute(dispatcher) {
-            val response = client.getEpisodes()
-            response.results.map { mapper.createCharacterEpisode(it) }
+    override suspend fun getCharacters(idList: Array<Int>): ResultWrapper<List<CharacterItem>> {
+        val response = client.getCharacterByIdList(idList)
+        return parseResult(response) { characters ->
+            characters.map { mapper.createCharacterFromResponse(it) }
         }
     }
 
-    override suspend fun getEpisode(id: Int): ResultWrapper<Episode> {
-        return execute(dispatcher) {
-            mapper.createCharacterEpisode(client.getEpisode(id))
+    override suspend fun getEpisodeList(): ResultWrapper<Episode> {
+        val response = client.getEpisodes()
+        return parseResult(response) { episodes ->
+            mapper.createEpisode(
+                info = mapper.createRequestInfo(episodes.info),
+                items = episodes.results.map { mapper.createEpisodeItem(it) }
+            )
+        }
+    }
+
+    override suspend fun getEpisode(id: Int): ResultWrapper<EpisodeItem> {
+        val response = client.getEpisode(id)
+        return parseResult(response) {
+            mapper.createEpisodeItem(it)
         }
     }
 }

@@ -2,7 +2,6 @@ package com.dzhtv.rickandmortylibrary.domain.model
 
 
 sealed class ResultWrapper<out T> {
-    data class Success<out T>(val value: T): ResultWrapper<T>()
-    data class GenericError(val code: Int? = null, val error: ErrorResponse? = null): ResultWrapper<Nothing>()
-    object NetworkError: ResultWrapper<Nothing>()
+    data class Success<out T>(val data: T): ResultWrapper<T>()
+    data class Error(val error: ErrorResponse): ResultWrapper<Nothing>()
 }

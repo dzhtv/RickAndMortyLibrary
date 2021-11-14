@@ -11,13 +11,13 @@ interface RickAndMortyRemoteRepository {
         species: String? = null,
         type: String? = null,
         gender: CharacterGender? = null
-    ): ResultWrapper<CharacterFilter>
+    ): ResultWrapper<Character>
 
-    suspend fun getCharacter(id: Int): ResultWrapper<Character>
+    suspend fun getCharacter(id: Int): ResultWrapper<CharacterItem>
 
-    suspend fun getCharacters(idList: Array<Int>): ResultWrapper<List<Character>>
+    suspend fun getCharacters(idList: Array<Int>): ResultWrapper<List<CharacterItem>>
 
-    suspend fun getEpisodeList(): ResultWrapper<List<Episode>>
+    suspend fun getEpisodeList(): ResultWrapper<Episode>
 
-    suspend fun getEpisode(id: Int): ResultWrapper<Episode>
+    suspend fun getEpisode(id: Int): ResultWrapper<EpisodeItem>
 }

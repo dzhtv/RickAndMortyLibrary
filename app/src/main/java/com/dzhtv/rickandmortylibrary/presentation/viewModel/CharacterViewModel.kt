@@ -4,9 +4,9 @@ import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import com.dzhtv.rickandmortylibrary.domain.model.ResultWrapper
+import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
 import com.dzhtv.rickandmortylibrary.domain.model.Character
-import com.dzhtv.rickandmortylibrary.domain.model.CharacterFilter
-import com.dzhtv.rickandmortylibrary.domain.model.Episode
+import com.dzhtv.rickandmortylibrary.domain.model.EpisodeItem
 import com.dzhtv.rickandmortylibrary.domain.repository.RickAndMortyRemoteRepository
 import com.dzhtv.rickandmortylibrary.presentation.Event
 import com.dzhtv.rickandmortylibrary.presentation.adapter.CharacterGridAdapter
@@ -22,10 +22,10 @@ class CharacterViewModel @ViewModelInject constructor(
     val errorMessage = MutableLiveData<Event<String>>()
     val scrollDown = MutableLiveData<Event<Unit>>()
     var isLoadingProgress = MutableLiveData<Event<Int>>()
-    val character = MutableLiveData<Character>()
+    val character = MutableLiveData<CharacterItem>()
     val characterImageUrl = MutableLiveData<String>()
-    val characterEpisodeStart = MutableLiveData<Episode>()
-    private var characters = MutableLiveData(listOf<Character>())
+    val characterEpisodeStart = MutableLiveData<EpisodeItem>()
+    private var characters = MutableLiveData(listOf<CharacterItem>())
     private var nextPage: Int? = null
 
     init {
@@ -52,23 +52,20 @@ class CharacterViewModel @ViewModelInject constructor(
         coroutineScope.launch {
             val result = networkRepo.getCharacters(page, null)
             when (result) {
-                is ResultWrapper.NetworkError -> {
-
+                is ResultWrapper.Success -> {
+                    handleCharacterResponse(result.data)
                 }
-                is ResultWrapper.GenericError -> {
+                is ResultWrapper.Error -> {
                     result.error?.message?.let {
                         errorMessage.postValue(Event(it))
                     }
-                }
-                is ResultWrapper.Success -> {
-                    handleCharacterResponse(result.value)
                 }
             }
             isLoadingProgress.postValue(Event(View.GONE))
         }
     }
 
-    private fun handleCharacterResponse(result: CharacterFilter) {
+    private fun handleCharacterResponse(result: Character) {
         characters.value = characters.value?.merge(result.characters)
         updateCharacterAdapter(characters.value!!)
 
@@ -77,7 +74,7 @@ class CharacterViewModel @ViewModelInject constructor(
         nextPage = result.info.next?.substringAfterLast("page=")?.toInt()
     }
 
-    private fun updateCharacterAdapter(characters: List<Character>) {
+    private fun updateCharacterAdapter(characters: List<CharacterItem>) {
         if (characters.isNotEmpty()) {
             adapter.apply {
                 refreshItems(characters)
@@ -92,9 +89,7 @@ class CharacterViewModel @ViewModelInject constructor(
             when (result) {
                 is ResultWrapper.Success -> {
                 }
-                is ResultWrapper.GenericError -> {
-                }
-                is ResultWrapper.NetworkError -> {
+                is ResultWrapper.Error -> {
                 }
             }
         }
@@ -105,9 +100,9 @@ class CharacterViewModel @ViewModelInject constructor(
             val result = networkRepo.getEpisode(id)
             when (result) {
                 is ResultWrapper.Success -> {
-                    handleEpisodeResponse(result.value)
+                    handleEpisodeResponse(result.data)
                 }
-                is ResultWrapper.GenericError -> {
+                is ResultWrapper.Error -> {
                     result.error?.message?.let {
                         errorMessage.postValue(Event(it))
                     }
@@ -116,7 +111,7 @@ class CharacterViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun handleEpisodeResponse(value: Episode) {
+    private fun handleEpisodeResponse(value: EpisodeItem) {
         characterEpisodeStart.postValue(value)
     }
 
@@ -139,7 +134,7 @@ class CharacterViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun getFirstAppearanceCharacter(value: Character): Int {
+    private fun getFirstAppearanceCharacter(value: CharacterItem): Int {
         return value.episode.first().substringAfterLast("episode/").toInt()
     }
 }
