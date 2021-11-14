@@ -13,7 +13,7 @@ class RickAndMortyRemoteRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : RickAndMortyRemoteRepository, BaseNetworkRepository() {
 
-    override suspend fun getCharacters(
+    override suspend fun getCharactersByFilter(
         page: Int?,
         name: String?,
         status: CharacterStatus?,
@@ -29,7 +29,7 @@ class RickAndMortyRemoteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCharacter(id: Int): ResultWrapper<CharacterItem> {
+    override suspend fun getCharacterById(id: Int): ResultWrapper<CharacterItem> {
         val response = client.getCharacterById(id)
         return parseResult(response) {
             mapper.createCharacterFromResponse(it)
@@ -53,7 +53,7 @@ class RickAndMortyRemoteRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getEpisode(id: Int): ResultWrapper<EpisodeItem> {
+    override suspend fun getEpisodeById(id: Int): ResultWrapper<EpisodeItem> {
         val response = client.getEpisode(id)
         return parseResult(response) {
             mapper.createEpisodeItem(it)

@@ -50,7 +50,7 @@ class CharacterViewModel @ViewModelInject constructor(
     private fun loadCharacters(page: Int? = null) {
         isLoadingProgress.postValue(Event(View.VISIBLE))
         coroutineScope.launch {
-            val result = networkRepo.getCharacters(page, null)
+            val result = networkRepo.getCharactersByFilter(page, null)
             when (result) {
                 is ResultWrapper.Success -> {
                     handleCharacterResponse(result.data)
@@ -85,7 +85,7 @@ class CharacterViewModel @ViewModelInject constructor(
 
     private fun loadCharacter(id: Int) {
         coroutineScope.launch {
-            val result = networkRepo.getCharacter(id)
+            val result = networkRepo.getCharacterById(id)
             when (result) {
                 is ResultWrapper.Success -> {
                 }
@@ -97,7 +97,7 @@ class CharacterViewModel @ViewModelInject constructor(
 
     private fun loadEpisode(id: Int) {
         coroutineScope.launch {
-            val result = networkRepo.getEpisode(id)
+            val result = networkRepo.getEpisodeById(id)
             when (result) {
                 is ResultWrapper.Success -> {
                     handleEpisodeResponse(result.data)
