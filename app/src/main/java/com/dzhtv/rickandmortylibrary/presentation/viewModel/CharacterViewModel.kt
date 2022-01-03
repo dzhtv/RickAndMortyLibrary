@@ -7,7 +7,9 @@ import com.dzhtv.rickandmortylibrary.domain.model.ResultWrapper
 import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
 import com.dzhtv.rickandmortylibrary.domain.model.Character
 import com.dzhtv.rickandmortylibrary.domain.model.EpisodeItem
-import com.dzhtv.rickandmortylibrary.domain.repository.RickAndMortyRemoteRepository
+import com.dzhtv.rickandmortylibrary.domain.usecase.GetCharacterByFilterUseCase
+import com.dzhtv.rickandmortylibrary.domain.usecase.GetCharacterByIdUseCase
+import com.dzhtv.rickandmortylibrary.domain.usecase.GetEpisodeByIdUseCase
 import com.dzhtv.rickandmortylibrary.presentation.Event
 import com.dzhtv.rickandmortylibrary.presentation.adapter.CharacterGridAdapter
 import com.dzhtv.rickandmortylibrary.presentation.merge
@@ -15,7 +17,9 @@ import com.dzhtv.rickandmortylibrary.toLog
 import kotlinx.coroutines.launch
 
 class CharacterViewModel @ViewModelInject constructor(
-    private val networkRepo: RickAndMortyRemoteRepository,
+    private val getCharacterByFilterUseCase: GetCharacterByFilterUseCase,
+    private val getCharacterByIdUseCase: GetCharacterByIdUseCase,
+    private val getEpisodeByIdUseCase: GetEpisodeByIdUseCase,
     private val adapter: CharacterGridAdapter
 ) : BaseViewModel() {
 
@@ -50,15 +54,13 @@ class CharacterViewModel @ViewModelInject constructor(
     private fun loadCharacters(page: Int? = null) {
         isLoadingProgress.postValue(Event(View.VISIBLE))
         coroutineScope.launch {
-            val result = networkRepo.getCharactersByFilter(page, null)
+            val result = getCharacterByFilterUseCase.execute(
+                GetCharacterByFilterUseCase.RequestValues(page)
+            )
             when (result) {
-                is ResultWrapper.Success -> {
-                    handleCharacterResponse(result.data)
-                }
-                is ResultWrapper.Error -> {
-                    result.error?.message?.let {
-                        errorMessage.postValue(Event(it))
-                    }
+                is ResultWrapper.Success -> handleCharacterResponse(result.data)
+                is ResultWrapper.Error -> result.error.message.let {
+                    errorMessage.postValue(Event(it))
                 }
             }
             isLoadingProgress.postValue(Event(View.GONE))
@@ -85,27 +87,25 @@ class CharacterViewModel @ViewModelInject constructor(
 
     private fun loadCharacter(id: Int) {
         coroutineScope.launch {
-            val result = networkRepo.getCharacterById(id)
+            val result = getCharacterByIdUseCase.execute(
+                GetCharacterByIdUseCase.RequestValues(id)
+            )
             when (result) {
-                is ResultWrapper.Success -> {
-                }
-                is ResultWrapper.Error -> {
-                }
+                is ResultWrapper.Success -> {}
+                is ResultWrapper.Error -> {}
             }
         }
     }
 
     private fun loadEpisode(id: Int) {
         coroutineScope.launch {
-            val result = networkRepo.getEpisodeById(id)
+            val result = getEpisodeByIdUseCase.execute(
+                GetEpisodeByIdUseCase.RequestValues(id)
+            )
             when (result) {
-                is ResultWrapper.Success -> {
-                    handleEpisodeResponse(result.data)
-                }
-                is ResultWrapper.Error -> {
-                    result.error?.message?.let {
-                        errorMessage.postValue(Event(it))
-                    }
+                is ResultWrapper.Success -> handleEpisodeResponse(result.data)
+                is ResultWrapper.Error -> result.error.message.let {
+                    errorMessage.postValue(Event(it))
                 }
             }
         }
