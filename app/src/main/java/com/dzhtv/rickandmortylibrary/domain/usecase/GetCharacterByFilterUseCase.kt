@@ -12,7 +12,7 @@ class GetCharacterByFilterUseCase @Inject constructor(
     data class RequestValues(
         val page: Int? = null,
         val name: String? = null
-    ) : BaseCoroutineUseCase.InputValues()
+    ) : BaseCoroutineUseCase.RequestValues()
 
     override suspend fun execute(params: RequestValues): ResultWrapper<Character> {
         return repository.getCharactersByFilter(

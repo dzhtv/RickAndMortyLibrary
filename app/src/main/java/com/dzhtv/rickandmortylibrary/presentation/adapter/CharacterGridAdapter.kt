@@ -8,7 +8,7 @@ import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
 import com.dzhtv.rickandmortylibrary.presentation.loadImage
 import javax.inject.Inject
 
-class CharacterGridAdapter @Inject constructor() :
+class CharacterGridAdapter @Inject constructor():
     RecyclerView.Adapter<CharacterGridAdapter.CharacterViewHolder>() {
 
     private var items: MutableList<CharacterItem> = mutableListOf()
@@ -30,7 +30,9 @@ class CharacterGridAdapter @Inject constructor() :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
-        return CharacterViewHolder(ItemCharacterBinding.inflate(LayoutInflater.from(parent.context)))
+        return CharacterViewHolder(
+            ItemCharacterBinding.inflate(LayoutInflater.from(parent.context))
+        )
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
@@ -46,5 +48,5 @@ class CharacterGridAdapter @Inject constructor() :
     override fun getItemCount(): Int = items.size
 
     inner class CharacterViewHolder(val binding: ItemCharacterBinding) :
-        RecyclerView.ViewHolder(binding.root) {}
+        RecyclerView.ViewHolder(binding.root)
 }

@@ -1,8 +1,10 @@
 package com.dzhtv.rickandmortylibrary.domain.usecase
 
-abstract class BaseCoroutineUseCase<I: BaseCoroutineUseCase.InputValues, O> {
+abstract class BaseCoroutineUseCase<I: BaseCoroutineUseCase.RequestValues, O> {
 
-    abstract class InputValues
+    abstract class RequestValues
+
+    class EmptyValues : RequestValues()
 
     abstract suspend fun execute(params: I): O
 }

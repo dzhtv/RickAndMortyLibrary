@@ -11,7 +11,7 @@ class GetEpisodeByIdUseCase @Inject constructor(
 
     data class RequestValues(
         val episodeId: Int
-    ) : BaseCoroutineUseCase.InputValues()
+    ) : BaseCoroutineUseCase.RequestValues()
 
     override suspend fun execute(params: RequestValues): ResultWrapper<EpisodeItem> {
         return repository.getEpisodeById(params.episodeId)

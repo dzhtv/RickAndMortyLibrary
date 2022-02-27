@@ -39,7 +39,7 @@ class CharacterDetailFragment : BaseFragment() {
             requireActivity().onBackPressed()
         }
 
-        characterViewModel.characterEpisodeStart.observe(viewLifecycleOwner, Observer {
+        characterViewModel.characterEpisodeStart.observe(viewLifecycleOwner) {
             it?.let { episode ->
                 binding.episodeField.apply {
                     setTitle(appContext().getString(R.string.first_appearance))
@@ -56,7 +56,6 @@ class CharacterDetailFragment : BaseFragment() {
                     }
                 }
             }
-        })
+        }
     }
-
 }

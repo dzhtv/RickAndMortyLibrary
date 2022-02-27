@@ -27,10 +27,4 @@ class AppModule {
     fun provideCharacterDao(database: AppDatabase): CharacterDao {
         return database.getCharacterDao()
     }
-
-    @Singleton
-    @Provides
-    fun provideCharacterAdapter(): CharacterGridAdapter {
-        return CharacterGridAdapter()
-    }
 }

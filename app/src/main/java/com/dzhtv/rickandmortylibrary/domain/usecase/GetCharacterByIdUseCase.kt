@@ -11,7 +11,7 @@ class GetCharacterByIdUseCase @Inject constructor(
 
     data class RequestValues(
         val id: Int
-    ) : BaseCoroutineUseCase.InputValues()
+    ) : BaseCoroutineUseCase.RequestValues()
 
     override suspend fun execute(params: RequestValues): ResultWrapper<CharacterItem> {
         return repository.getCharacterById(params.id)
