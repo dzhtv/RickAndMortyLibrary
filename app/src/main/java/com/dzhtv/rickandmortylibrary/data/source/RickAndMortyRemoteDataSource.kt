@@ -2,16 +2,16 @@ package com.dzhtv.rickandmortylibrary.data.source
 
 import com.dzhtv.rickandmortylibrary.data.RickAndMortyApi
 import com.dzhtv.rickandmortylibrary.domain.model.*
-import com.dzhtv.rickandmortylibrary.domain.repository.RickAndMortyRemoteRepository
+import com.dzhtv.rickandmortylibrary.domain.repository.RickAndMortyRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
-class RickAndMortyRemoteRepositoryImpl @Inject constructor(
+class RickAndMortyRemoteDataSource @Inject constructor(
     private val client: RickAndMortyApi,
     private val mapper: DtoMapper,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : RickAndMortyRemoteRepository, BaseNetworkRepository() {
+) : RickAndMortyRepository, BaseNetworkDataSource() {
 
     override suspend fun getCharactersByFilter(
         page: Int?,

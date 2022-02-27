@@ -44,6 +44,7 @@ ext {
     gsonVersion = '2.8.6'
     daggerVersion = '2.23.2'
     coroutinesVersion = '1.3.9'
+    coroutinesCoreVersion = '1.5.2'
     ktxVersion = '1.5.0'
     glideVersion = '4.11.0'
     glidePaletteVersion = '2.1.2'

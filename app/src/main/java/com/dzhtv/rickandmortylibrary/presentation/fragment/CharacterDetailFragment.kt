@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import com.dzhtv.rickandmortylibrary.R
 import com.dzhtv.rickandmortylibrary.databinding.FragmentCharacterDetailBinding
 import com.dzhtv.rickandmortylibrary.presentation.activity.MainActivity
-import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
+import com.dzhtv.rickandmortylibrary.presentation.viewmodel.CharacterViewModel
 import com.dzhtv.rickandmortylibrary.presentation.visible
 
 class CharacterDetailFragment : BaseFragment() {

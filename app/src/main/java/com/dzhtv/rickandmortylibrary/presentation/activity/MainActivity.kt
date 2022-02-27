@@ -3,9 +3,9 @@ package com.dzhtv.rickandmortylibrary.presentation.activity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.dzhtv.rickandmortylibrary.R
-import com.dzhtv.rickandmortylibrary.presentation.viewModel.BaseViewModel
+import com.dzhtv.rickandmortylibrary.presentation.viewmodel.BaseViewModel
 import com.dzhtv.rickandmortylibrary.presentation.fragment.CharacterListFragment
-import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
+import com.dzhtv.rickandmortylibrary.presentation.viewmodel.CharacterViewModel
 
 import dagger.hilt.android.AndroidEntryPoint
 

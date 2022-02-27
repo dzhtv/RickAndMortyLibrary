@@ -13,7 +13,7 @@ import com.dzhtv.rickandmortylibrary.presentation.adapter.OnItemClickListener
 import com.dzhtv.rickandmortylibrary.presentation.adapter.RecyclerItemClickListener
 import com.dzhtv.rickandmortylibrary.databinding.FragmentCharacterListBinding
 import com.dzhtv.rickandmortylibrary.presentation.showSnackbar
-import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
+import com.dzhtv.rickandmortylibrary.presentation.viewmodel.CharacterViewModel
 
 class CharacterListFragment : BaseFragment() {
 

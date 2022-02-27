@@ -11,7 +11,7 @@ import retrofit2.Response
 import java.io.IOException
 import java.lang.Exception
 
-open class BaseNetworkRepository {
+open class BaseNetworkDataSource {
 
     suspend fun <T> execute(
         dispatcher: CoroutineDispatcher,

@@ -12,6 +12,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.InputStream
@@ -25,7 +26,11 @@ import javax.net.ssl.X509TrustManager
 @GlideModule
 @InstallIn(ApplicationComponent::class)
 class GlideUnsafeModule : AppGlideModule() {
-    override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
+    override fun registerComponents(
+        @ApplicationContext context: Context,
+        glide: Glide,
+        registry: Registry
+    ) {
         registry.replace(
             GlideUrl::class.java,
             InputStream::class.java,

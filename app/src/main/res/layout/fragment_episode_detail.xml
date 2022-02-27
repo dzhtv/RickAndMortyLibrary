@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel" />
+            type="com.dzhtv.rickandmortylibrary.presentation.viewmodel.CharacterViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

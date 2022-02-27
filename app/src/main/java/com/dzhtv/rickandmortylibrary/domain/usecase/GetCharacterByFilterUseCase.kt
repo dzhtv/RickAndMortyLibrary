@@ -2,11 +2,11 @@ package com.dzhtv.rickandmortylibrary.domain.usecase
 
 import com.dzhtv.rickandmortylibrary.domain.model.Character
 import com.dzhtv.rickandmortylibrary.domain.model.ResultWrapper
-import com.dzhtv.rickandmortylibrary.domain.repository.RickAndMortyRemoteRepository
+import com.dzhtv.rickandmortylibrary.domain.repository.RickAndMortyRepository
 import javax.inject.Inject
 
 class GetCharacterByFilterUseCase @Inject constructor(
-    val repository: RickAndMortyRemoteRepository
+    val repository: RickAndMortyRepository
 ) : BaseCoroutineUseCase<GetCharacterByFilterUseCase.RequestValues, ResultWrapper<Character>>() {
 
     data class RequestValues(
