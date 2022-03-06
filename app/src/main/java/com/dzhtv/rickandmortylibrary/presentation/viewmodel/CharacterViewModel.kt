@@ -11,7 +11,6 @@ import com.dzhtv.rickandmortylibrary.domain.usecase.GetCharacterByFilterUseCase
 import com.dzhtv.rickandmortylibrary.domain.usecase.GetCharacterByIdUseCase
 import com.dzhtv.rickandmortylibrary.domain.usecase.GetEpisodeByIdUseCase
 import com.dzhtv.rickandmortylibrary.presentation.Event
-import com.dzhtv.rickandmortylibrary.presentation.adapter.CharacterGridAdapter
 import com.dzhtv.rickandmortylibrary.presentation.merge
 import com.dzhtv.rickandmortylibrary.toLog
 import kotlinx.coroutines.launch
@@ -116,7 +115,7 @@ class CharacterViewModel @ViewModelInject constructor(
     fun clickOnPosition(position: Int) {
         characters.value?.get(position)?.let { item ->
             character.postValue(item)
-            item.image?.let { characterImageUrl.postValue(it) }
+            item.image.let { characterImageUrl.postValue(it) }
             loadEpisode(getFirstAppearanceCharacter(item))
         }
     }

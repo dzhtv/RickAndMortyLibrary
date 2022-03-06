@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dzhtv.rickandmortylibrary.databinding.ItemCharacterBinding
 import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
 import com.dzhtv.rickandmortylibrary.presentation.loadImage
+import com.dzhtv.rickandmortylibrary.toLog
 import javax.inject.Inject
 
 class CharacterGridAdapter @Inject constructor():
@@ -39,7 +40,7 @@ class CharacterGridAdapter @Inject constructor():
         val data = items.toList()[position]
         holder.binding.apply {
             title.text = data.name
-            data.image?.let { url ->
+            data.image.let { url ->
                 imageView.loadImage(url)
             }
         }

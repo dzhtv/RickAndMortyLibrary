@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +26,7 @@ class CharacterListFragment : BaseFragment() {
     @Inject
     lateinit var fragmentAdapter: CharacterGridAdapter
 
-    private lateinit var characterViewModel: CharacterViewModel
+    private val characterViewModel: CharacterViewModel by activityViewModels()
     private var _binding: FragmentCharacterListBinding? = null
     private val binding get() = _binding!!
 
@@ -32,9 +34,8 @@ class CharacterListFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
-        characterViewModel = provideCharacterViewModel()
         return binding.root
     }
 
@@ -47,7 +48,7 @@ class CharacterListFragment : BaseFragment() {
 
     private fun initUI() {
         binding.recyclerView.apply {
-            layoutManager = GridLayoutManager(requireActivity(), 2)
+            layoutManager = GridLayoutManager(context, 2)
             adapter = fragmentAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -59,18 +60,15 @@ class CharacterListFragment : BaseFragment() {
             })
             addOnItemTouchListener(
                 RecyclerItemClickListener(
-                    requireActivity(),
-                    recyclerView = this,
-                    mListener = object : OnItemClickListener {
-                        override fun onItemClick(view: View, position: Int) {
-                            characterViewModel.clickOnPosition(position)
-                            requireActivity().supportFragmentManager.beginTransaction()
-                                .replace(R.id.container_main, CharacterDetailFragment())
-                                .addToBackStack(null)
-                                .commit()
-                        }
-                    }
-                )
+                    context,
+                    recyclerView = this
+                ) { view, position ->
+                    characterViewModel.clickOnPosition(position)
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.container_main, CharacterDetailFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
             )
         }
     }
@@ -100,6 +98,5 @@ class CharacterListFragment : BaseFragment() {
                 }
             }
         }
-
     }
 }

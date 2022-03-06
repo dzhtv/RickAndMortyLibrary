@@ -17,6 +17,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.InputStream
 import java.security.cert.X509Certificate
+import javax.inject.Singleton
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -42,6 +43,7 @@ class GlideUnsafeModule : AppGlideModule() {
         super.applyOptions(context, builder)
     }
 
+    @Singleton
     @Provides
     fun provideOkHttpClientUnsaved(): OkHttpClient {
         // Create a trust manager that does not validate certificate chains

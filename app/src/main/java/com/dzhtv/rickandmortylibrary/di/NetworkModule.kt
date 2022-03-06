@@ -2,11 +2,6 @@ package com.dzhtv.rickandmortylibrary.di
 
 import com.dzhtv.rickandmortylibrary.BuildConfig
 import com.dzhtv.rickandmortylibrary.data.RickAndMortyApi
-import com.dzhtv.rickandmortylibrary.data.source.DtoMapper
-import com.dzhtv.rickandmortylibrary.data.source.RickAndMortyLocalDataSource
-import com.dzhtv.rickandmortylibrary.domain.repository.RickAndMortyRepository
-import com.dzhtv.rickandmortylibrary.data.source.RickAndMortyRemoteDataSource
-import com.dzhtv.rickandmortylibrary.data.source.RickAndMortyRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
