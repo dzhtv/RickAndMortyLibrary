@@ -27,6 +27,7 @@ class CharacterGridAdapter @Inject constructor():
         this.items.apply {
             removeAll(this)
             addAll(collections)
+            notifyDataSetChanged()
         }
     }
 

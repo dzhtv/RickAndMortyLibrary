@@ -39,11 +39,11 @@ class CharacterListFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        characterViewModel.fetchCharacters()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initUI()
         observeViewModel()
+        characterViewModel.fetchCharacters()
     }
 
     private fun initUI() {
@@ -76,7 +76,6 @@ class CharacterListFragment : BaseFragment() {
     private fun observeViewModel() {
         characterViewModel.characters.observe(viewLifecycleOwner) { characters ->
             fragmentAdapter.refreshItems(characters)
-            fragmentAdapter.notifyDataSetChanged()
         }
 
         characterViewModel.errorMessage.observe(viewLifecycleOwner) { event ->
