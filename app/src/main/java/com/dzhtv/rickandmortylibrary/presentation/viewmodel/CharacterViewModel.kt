@@ -1,4 +1,4 @@
-package com.dzhtv.rickandmortylibrary.presentation.viewModel
+package com.dzhtv.rickandmortylibrary.presentation.viewmodel
 
 import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
@@ -11,7 +11,6 @@ import com.dzhtv.rickandmortylibrary.domain.usecase.GetCharacterByFilterUseCase
 import com.dzhtv.rickandmortylibrary.domain.usecase.GetCharacterByIdUseCase
 import com.dzhtv.rickandmortylibrary.domain.usecase.GetEpisodeByIdUseCase
 import com.dzhtv.rickandmortylibrary.presentation.Event
-import com.dzhtv.rickandmortylibrary.presentation.adapter.CharacterGridAdapter
 import com.dzhtv.rickandmortylibrary.presentation.merge
 import com.dzhtv.rickandmortylibrary.toLog
 import kotlinx.coroutines.launch
@@ -19,8 +18,7 @@ import kotlinx.coroutines.launch
 class CharacterViewModel @ViewModelInject constructor(
     private val getCharacterByFilterUseCase: GetCharacterByFilterUseCase,
     private val getCharacterByIdUseCase: GetCharacterByIdUseCase,
-    private val getEpisodeByIdUseCase: GetEpisodeByIdUseCase,
-    private val adapter: CharacterGridAdapter
+    private val getEpisodeByIdUseCase: GetEpisodeByIdUseCase
 ) : BaseViewModel() {
 
     val errorMessage = MutableLiveData<Event<String>>()
@@ -29,7 +27,7 @@ class CharacterViewModel @ViewModelInject constructor(
     val character = MutableLiveData<CharacterItem>()
     val characterImageUrl = MutableLiveData<String>()
     val characterEpisodeStart = MutableLiveData<EpisodeItem>()
-    private var characters = MutableLiveData(listOf<CharacterItem>())
+    var characters = MutableLiveData<List<CharacterItem>>(emptyList())
     private var nextPage: Int? = null
 
     init {
@@ -40,10 +38,6 @@ class CharacterViewModel @ViewModelInject constructor(
         t.message?.let {
             errorMessage.postValue(Event(it))
         }
-    }
-
-    fun getCharacterAdapter(): CharacterGridAdapter {
-        return adapter
     }
 
     fun fetchCharacters() {
@@ -68,21 +62,14 @@ class CharacterViewModel @ViewModelInject constructor(
     }
 
     private fun handleCharacterResponse(result: Character) {
-        characters.value = characters.value?.merge(result.characters)
-        updateCharacterAdapter(characters.value!!)
-
-        if (nextPage != null)
-            scrollDown.postValue(Event(Unit))
-        nextPage = result.info.next?.substringAfterLast("page=")?.toInt()
-    }
-
-    private fun updateCharacterAdapter(characters: List<CharacterItem>) {
-        if (characters.isNotEmpty()) {
-            adapter.apply {
-                refreshItems(characters)
-                notifyDataSetChanged()
-            }
+        characters.value?.let {
+            characters.postValue(
+                it.merge(result.characters)
+            )
         }
+
+        if (nextPage != null) scrollDown.postValue(Event(Unit))
+        nextPage = result.info.next?.substringAfterLast("page=")?.toInt()
     }
 
     private fun loadCharacter(id: Int) {
@@ -116,8 +103,7 @@ class CharacterViewModel @ViewModelInject constructor(
     }
 
     fun onScrolledRecyclerToEnd() {
-        if (nextPage == null)
-            return
+        if (nextPage == null) return
         isLoadingProgress.value?.let { event ->
             event.getContentIfNotHandled()?.let { isLoading ->
                 if (isLoading == View.GONE)
@@ -129,7 +115,7 @@ class CharacterViewModel @ViewModelInject constructor(
     fun clickOnPosition(position: Int) {
         characters.value?.get(position)?.let { item ->
             character.postValue(item)
-            item.image?.let { characterImageUrl.postValue(it) }
+            item.image.let { characterImageUrl.postValue(it) }
             loadEpisode(getFirstAppearanceCharacter(item))
         }
     }

@@ -12,10 +12,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.InputStream
 import java.security.cert.X509Certificate
+import javax.inject.Singleton
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -25,7 +27,11 @@ import javax.net.ssl.X509TrustManager
 @GlideModule
 @InstallIn(ApplicationComponent::class)
 class GlideUnsafeModule : AppGlideModule() {
-    override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
+    override fun registerComponents(
+        @ApplicationContext context: Context,
+        glide: Glide,
+        registry: Registry
+    ) {
         registry.replace(
             GlideUrl::class.java,
             InputStream::class.java,
@@ -37,6 +43,7 @@ class GlideUnsafeModule : AppGlideModule() {
         super.applyOptions(context, builder)
     }
 
+    @Singleton
     @Provides
     fun provideOkHttpClientUnsaved(): OkHttpClient {
         // Create a trust manager that does not validate certificate chains

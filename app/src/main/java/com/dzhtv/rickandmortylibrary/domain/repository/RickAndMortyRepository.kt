@@ -2,7 +2,7 @@ package com.dzhtv.rickandmortylibrary.domain.repository
 
 import com.dzhtv.rickandmortylibrary.domain.model.*
 
-interface RickAndMortyRemoteRepository {
+interface RickAndMortyRepository {
 
     suspend fun getCharactersByFilter(
         page: Int? = null,

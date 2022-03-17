@@ -4,30 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.dzhtv.rickandmortylibrary.R
 import com.dzhtv.rickandmortylibrary.databinding.FragmentCharacterDetailBinding
 import com.dzhtv.rickandmortylibrary.presentation.activity.MainActivity
-import com.dzhtv.rickandmortylibrary.presentation.viewModel.CharacterViewModel
+import com.dzhtv.rickandmortylibrary.presentation.viewmodel.CharacterViewModel
 import com.dzhtv.rickandmortylibrary.presentation.visible
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CharacterDetailFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCharacterDetailBinding
-    private lateinit var characterViewModel: CharacterViewModel
+    private val characterViewModel: CharacterViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCharacterDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        characterViewModel = provideCharacterViewModel()
         if (this::binding.isInitialized) {
             binding.viewModel = characterViewModel
             initUI()
@@ -39,10 +41,10 @@ class CharacterDetailFragment : BaseFragment() {
             requireActivity().onBackPressed()
         }
 
-        characterViewModel.characterEpisodeStart.observe(viewLifecycleOwner, Observer {
+        characterViewModel.characterEpisodeStart.observe(viewLifecycleOwner) {
             it?.let { episode ->
                 binding.episodeField.apply {
-                    setTitle(appContext().getString(R.string.first_appearance))
+                    setTitle(context.getString(R.string.first_appearance))
                     setHeaderText(episode.name)
                     setSubheader(episode.episode)
                     setPicture(isVisible = true)
@@ -56,7 +58,6 @@ class CharacterDetailFragment : BaseFragment() {
                     }
                 }
             }
-        })
+        }
     }
-
 }
