@@ -28,16 +28,26 @@ class EpisodeDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (this::binding.isInitialized) {
-            binding.viewModel = viewModel
-        }
         initUI()
+        observeViewModel()
     }
 
     private fun initUI() {
         binding.recyclerView.layoutManager = GridLayoutManager(context, 4)
         binding.backBtn.setOnClickListener {
             requireActivity().onBackPressed()
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.character.observe(viewLifecycleOwner) { character ->
+            character.firstEpisodeItem?.let { episode ->
+                binding.apply {
+                    episodeName.text = episode.name
+                    episodeDate.text = episode.airDate
+                    this.episode.text = episode.episode
+                }
+            }
         }
     }
 }

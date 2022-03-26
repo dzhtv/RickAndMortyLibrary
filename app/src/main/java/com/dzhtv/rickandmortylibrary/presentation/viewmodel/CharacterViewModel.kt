@@ -24,7 +24,6 @@ class CharacterViewModel @ViewModelInject constructor(
     var isLoadingProgress = MutableLiveData<Event<Int>>()
     val character = MutableLiveData<CharacterItem>()
     val characterImageUrl = MutableLiveData<String>()
-    val characterEpisodeStart = MutableLiveData<EpisodeItem?>()
     var characters = MutableLiveData<List<CharacterItem>>(emptyList())
     private var nextPage: Int? = null
 
@@ -93,7 +92,12 @@ class CharacterViewModel @ViewModelInject constructor(
                 GetEpisodeByIdUseCase.RequestValues(id)
             )
             when (result) {
-                is ResultWrapper.Success -> characterEpisodeStart.postValue(result.data)
+                is ResultWrapper.Success -> {
+                    character.value?.let {
+                        it.firstEpisodeItem = result.data
+                        character.postValue(it)
+                    }
+                }
                 is ResultWrapper.Error -> result.error.message.let {
                     errorMessage.postValue(Event(it))
                 }

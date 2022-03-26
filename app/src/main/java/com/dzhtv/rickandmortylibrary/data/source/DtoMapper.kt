@@ -18,7 +18,8 @@ class DtoMapper {
             species = response.species,
             status = response.status,
             type = response.type,
-            url = response.url
+            url = response.url,
+            firstEpisodeItem = null
         )
     }
 

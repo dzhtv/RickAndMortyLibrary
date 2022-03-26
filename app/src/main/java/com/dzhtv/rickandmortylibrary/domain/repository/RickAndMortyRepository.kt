@@ -18,7 +18,9 @@ interface RickAndMortyRepository {
 
     suspend fun getEpisodeById(id: Int): ResultWrapper<EpisodeItem>
 
-    suspend fun addToFavorites(character: CharacterItem): Boolean
+    suspend fun getFavorites(): List<CharacterItem>
 
-    suspend fun removeFromFavorites(characterId: Int): Boolean
+    suspend fun addToFavorites(character: CharacterItem)
+
+    suspend fun removeFromFavorites(character: CharacterItem)
 }

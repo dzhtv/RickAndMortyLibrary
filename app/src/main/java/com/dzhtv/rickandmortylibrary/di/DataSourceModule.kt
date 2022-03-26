@@ -20,7 +20,7 @@ class DataSourceModule {
     @Singleton
     @Provides
     fun provideLocalDataSource(characterDao: CharacterDao): RickAndMortyLocalDataSource {
-        return RickAndMortyLocalDataSource(characterDao)
+        return RickAndMortyLocalDataSource(characterDao, EntityMapper())
     }
 
     @Singleton

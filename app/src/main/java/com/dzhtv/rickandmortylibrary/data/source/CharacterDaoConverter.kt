@@ -31,7 +31,7 @@ class CharacterDaoConverter {
     }
 
     @TypeConverter
-    fun fromEpisodeItem(response: EpisodeItem): String {
+    fun fromEpisodeItem(response: EpisodeItem): String? {
         return Gson().toJson(response, object : TypeToken<EpisodeItem>() {}.type)
     }
 

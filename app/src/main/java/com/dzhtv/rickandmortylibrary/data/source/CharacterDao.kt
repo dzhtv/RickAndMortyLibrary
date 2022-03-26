@@ -12,6 +12,9 @@ interface CharacterDao {
     suspend fun findCharacter(characterId: Int): CharacterEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(character: CharacterEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(items: List<CharacterEntity>)
 
     @Delete

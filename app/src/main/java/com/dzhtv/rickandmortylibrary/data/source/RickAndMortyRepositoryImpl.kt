@@ -7,7 +7,7 @@ import javax.inject.Inject
 class RickAndMortyRepositoryImpl @Inject constructor(
     private val remoteDataSource: RickAndMortyRemoteDataSource,
     private val localDataSource: RickAndMortyLocalDataSource
-): RickAndMortyRepository {
+) : RickAndMortyRepository {
 
     override suspend fun loadCharacters(page: Int?): ResultWrapper<Character> {
         return remoteDataSource.getCharactersByFilter(page)
@@ -29,11 +29,15 @@ class RickAndMortyRepositoryImpl @Inject constructor(
         return remoteDataSource.getEpisodeById(id)
     }
 
-    override suspend fun addToFavorites(character: CharacterItem): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun addToFavorites(character: CharacterItem) {
+        localDataSource.setCharacter(character)
     }
 
-    override suspend fun removeFromFavorites(characterId: Int): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun getFavorites(): List<CharacterItem> {
+        return localDataSource.getCharacters()
+    }
+
+    override suspend fun removeFromFavorites(character: CharacterItem) {
+        localDataSource.removeCharacter(character)
     }
 }

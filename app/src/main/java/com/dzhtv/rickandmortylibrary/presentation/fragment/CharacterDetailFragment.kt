@@ -41,8 +41,8 @@ class CharacterDetailFragment : BaseFragment() {
             requireActivity().onBackPressed()
         }
 
-        characterViewModel.characterEpisodeStart.observe(viewLifecycleOwner) {
-            it?.let { episode ->
+        characterViewModel.character.observe(viewLifecycleOwner) {
+            it.firstEpisodeItem?.let { episode ->
                 binding.episodeField.apply {
                     setTitle(context.getString(R.string.first_appearance))
                     setHeaderText(episode.name)
