@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
+import com.dzhtv.rickandmortylibrary.data.model.CharacterEntity
 
-@Database(entities = [CharacterResponse::class], version = 1, exportSchema = true)
+@Database(entities = [CharacterEntity::class], version = 1, exportSchema = true)
 @TypeConverters(CharacterDaoConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 

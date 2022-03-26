@@ -13,12 +13,12 @@ class RickAndMortyRemoteDataSource @Inject constructor(
 ) : BaseNetworkDataSource() {
 
     suspend fun getCharactersByFilter(
-        page: Int?,
-        name: String?,
-        status: CharacterStatus?,
-        species: String?,
-        type: String?,
-        gender: CharacterGender?
+        page: Int? = null,
+        name: String? = null,
+        status: CharacterStatus? = null,
+        species: String? = null,
+        type: String? = null,
+        gender: CharacterGender? = null
     ): ResultWrapper<Character> {
         val response = execute(dispatcher) {
             client.getCharactersByFilter(page = page)

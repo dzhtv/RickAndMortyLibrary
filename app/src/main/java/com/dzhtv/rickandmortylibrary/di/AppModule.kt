@@ -1,10 +1,7 @@
 package com.dzhtv.rickandmortylibrary.di
 
 import android.content.Context
-import com.dzhtv.rickandmortylibrary.data.RickAndMortyApi
 import com.dzhtv.rickandmortylibrary.data.source.*
-import com.dzhtv.rickandmortylibrary.domain.repository.RickAndMortyRepository
-import com.dzhtv.rickandmortylibrary.presentation.adapter.CharacterGridAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

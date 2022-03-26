@@ -1,6 +1,6 @@
 package com.dzhtv.rickandmortylibrary.domain.usecase
 
-abstract class BaseCoroutineUseCase<I: BaseCoroutineUseCase.RequestValues, O> {
+abstract class BaseCoroutineUseCase<in I: BaseCoroutineUseCase.RequestValues, out O> {
 
     abstract class RequestValues
 

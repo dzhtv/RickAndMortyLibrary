@@ -1,23 +1,19 @@
 package com.dzhtv.rickandmortylibrary.data.source
 
 import androidx.room.*
-import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
+import com.dzhtv.rickandmortylibrary.data.model.CharacterEntity
 
 @Dao
 interface CharacterDao {
-
     @Query("SELECT * FROM characters")
-    suspend fun getCharacters(): List<CharacterResponse>
+    suspend fun getCharacters(): List<CharacterEntity>
 
-    @Query("SELECT * FROM characters WHERE id =:characterId")
-    suspend fun findCharacter(characterId: Int): CharacterResponse?
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCharacter(item: CharacterResponse)
+    @Query("SELECT * FROM characters WHERE characterId =:characterId")
+    suspend fun findCharacter(characterId: Int): CharacterEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(items: List<CharacterResponse>)
+    suspend fun insertAll(items: List<CharacterEntity>)
 
     @Delete
-    suspend fun delete(character: CharacterResponse)
+    suspend fun delete(character: CharacterEntity)
 }

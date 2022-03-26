@@ -5,19 +5,15 @@ import com.dzhtv.rickandmortylibrary.domain.model.ResultWrapper
 import com.dzhtv.rickandmortylibrary.domain.repository.RickAndMortyRepository
 import javax.inject.Inject
 
-class GetCharacterByFilterUseCase @Inject constructor(
+class GetCharacterListUseCase @Inject constructor(
     val repository: RickAndMortyRepository
-) : BaseCoroutineUseCase<GetCharacterByFilterUseCase.RequestValues, ResultWrapper<Character>>() {
+) : BaseCoroutineUseCase<GetCharacterListUseCase.RequestValues, ResultWrapper<Character>>() {
 
     data class RequestValues(
-        val page: Int? = null,
-        val name: String? = null
+        val page: Int? = null
     ) : BaseCoroutineUseCase.RequestValues()
 
     override suspend fun execute(params: RequestValues): ResultWrapper<Character> {
-        return repository.getCharactersByFilter(
-            page = params.page,
-            name = params.name
-        )
+        return repository.loadCharacters(params.page)
     }
 }
