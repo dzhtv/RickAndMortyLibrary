@@ -7,4 +7,8 @@
     <string name="type">Type:</string>
     <string name="episode_list">Episode list</string>
     <string name="first_appearance">First appearance:</string>
+
+    <string name="nav_list">All</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="empty_favorites">Empty list</string>
 </resources>

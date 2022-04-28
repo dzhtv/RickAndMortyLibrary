@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/network_list"
+        android:icon="@drawable/ic_list_24"
+        android:title="@string/nav_list" />
+    <item
+        android:id="@+id/saved_list"
+        android:icon="@drawable/ic_favorite_active_24"
+        android:title="@string/nav_favorites" />
+</menu>

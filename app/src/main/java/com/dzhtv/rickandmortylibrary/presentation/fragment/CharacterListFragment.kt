@@ -1,22 +1,22 @@
 package com.dzhtv.rickandmortylibrary.presentation.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dzhtv.rickandmortylibrary.R
-import com.dzhtv.rickandmortylibrary.presentation.adapter.OnItemClickListener
+import com.dzhtv.rickandmortylibrary.TAG
 import com.dzhtv.rickandmortylibrary.presentation.adapter.RecyclerItemClickListener
 import com.dzhtv.rickandmortylibrary.databinding.FragmentCharacterListBinding
 import com.dzhtv.rickandmortylibrary.presentation.adapter.CharacterGridAdapter
 import com.dzhtv.rickandmortylibrary.presentation.showSnackbar
 import com.dzhtv.rickandmortylibrary.presentation.viewmodel.CharacterViewModel
+import com.dzhtv.rickandmortylibrary.toLog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -41,6 +41,7 @@ class CharacterListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d(TAG, "CharacterListFragment create")
         initUI()
         observeViewModel()
         characterViewModel.fetchCharacters()
@@ -75,6 +76,7 @@ class CharacterListFragment : BaseFragment() {
 
     private fun observeViewModel() {
         characterViewModel.characters.observe(viewLifecycleOwner) { characters ->
+            characters.size.toString().toLog()
             fragmentAdapter.refreshItems(characters)
         }
 
