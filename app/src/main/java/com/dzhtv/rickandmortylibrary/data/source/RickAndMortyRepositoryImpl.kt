@@ -1,7 +1,12 @@
 package com.dzhtv.rickandmortylibrary.data.source
 
-import com.dzhtv.rickandmortylibrary.domain.model.*
+import com.dzhtv.rickandmortylibrary.domain.model.ResultWrapper
+import com.dzhtv.rickandmortylibrary.domain.model.Character
+import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
+import com.dzhtv.rickandmortylibrary.domain.model.Episode
+import com.dzhtv.rickandmortylibrary.domain.model.EpisodeItem
 import com.dzhtv.rickandmortylibrary.domain.repository.RickAndMortyRepository
+import com.dzhtv.rickandmortylibrary.toLog
 import javax.inject.Inject
 
 class RickAndMortyRepositoryImpl @Inject constructor(
@@ -17,7 +22,7 @@ class RickAndMortyRepositoryImpl @Inject constructor(
         return remoteDataSource.getCharacterById(id)
     }
 
-    override suspend fun getCharacters(idList: Array<Int>): ResultWrapper<List<CharacterItem>> {
+    override suspend fun getCharacters(idList: List<Int>): ResultWrapper<List<CharacterItem>> {
         return remoteDataSource.getCharacters(idList)
     }
 
@@ -34,6 +39,7 @@ class RickAndMortyRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFavorites(): List<CharacterItem> {
+        "getFavorites".toLog()
         return localDataSource.getCharacters()
     }
 

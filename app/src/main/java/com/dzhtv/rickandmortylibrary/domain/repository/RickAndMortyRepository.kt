@@ -12,7 +12,7 @@ interface RickAndMortyRepository {
 
     suspend fun getCharacterById(id: Int): ResultWrapper<CharacterItem>
 
-    suspend fun getCharacters(idList: Array<Int>): ResultWrapper<List<CharacterItem>>
+    suspend fun getCharacters(idList: List<Int>): ResultWrapper<List<CharacterItem>>
 
     suspend fun getEpisodeList(): ResultWrapper<Episode>
 

@@ -51,9 +51,13 @@ class CharacterDetailFragment : BaseFragment() {
                     visible()
                     setOnClickListener {
                         if (requireActivity() is MainActivity) {
-                            (requireActivity() as MainActivity).replaceFragment(
-                                EpisodeDetailFragment()
-                            )
+//                            (requireActivity() as MainActivity).replaceFragment(
+//                                EpisodeDetailFragment()
+//                            )
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.container_main, EpisodeDetailFragment())
+                                .addToBackStack(null)
+                                .commit()
                         }
                     }
                 }

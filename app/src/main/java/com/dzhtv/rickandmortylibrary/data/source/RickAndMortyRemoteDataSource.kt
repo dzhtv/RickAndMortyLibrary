@@ -1,7 +1,13 @@
 package com.dzhtv.rickandmortylibrary.data.source
 
 import com.dzhtv.rickandmortylibrary.data.RickAndMortyApi
-import com.dzhtv.rickandmortylibrary.domain.model.*
+import com.dzhtv.rickandmortylibrary.domain.model.Character
+import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
+import com.dzhtv.rickandmortylibrary.domain.model.CharacterGender
+import com.dzhtv.rickandmortylibrary.domain.model.CharacterStatus
+import com.dzhtv.rickandmortylibrary.domain.model.Episode
+import com.dzhtv.rickandmortylibrary.domain.model.EpisodeItem
+import com.dzhtv.rickandmortylibrary.domain.model.ResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
@@ -35,7 +41,7 @@ class RickAndMortyRemoteDataSource @Inject constructor(
         }
     }
 
-    suspend fun getCharacters(idList: Array<Int>): ResultWrapper<List<CharacterItem>> {
+    suspend fun getCharacters(idList: List<Int>): ResultWrapper<List<CharacterItem>> {
         val response = client.getCharacterByIdList(idList)
         return parseResult(response) { characters ->
             characters.map { mapper.createCharacterFromResponse(it) }

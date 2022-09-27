@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import com.dzhtv.rickandmortylibrary.domain.model.ResultWrapper
 import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
 import com.dzhtv.rickandmortylibrary.domain.model.Character
-import com.dzhtv.rickandmortylibrary.domain.model.EpisodeItem
+import com.dzhtv.rickandmortylibrary.domain.usecase.GetFavoritesCharacterUseCase
+import com.dzhtv.rickandmortylibrary.domain.usecase.AddFavoriteCharacterUseCase
+import com.dzhtv.rickandmortylibrary.domain.usecase.RemoveFavoriteCharacterUseCase
 import com.dzhtv.rickandmortylibrary.domain.usecase.GetCharacterListUseCase
 import com.dzhtv.rickandmortylibrary.domain.usecase.GetEpisodeByIdUseCase
 import com.dzhtv.rickandmortylibrary.presentation.Event
@@ -16,7 +18,10 @@ import kotlinx.coroutines.launch
 
 class CharacterViewModel @ViewModelInject constructor(
     private val getCharacterListUseCase: GetCharacterListUseCase,
-    private val getEpisodeByIdUseCase: GetEpisodeByIdUseCase
+    private val getEpisodeByIdUseCase: GetEpisodeByIdUseCase,
+    private val getFavoritesCharacterUseCase: GetFavoritesCharacterUseCase,
+    private val addFavoriteCharacterUseCase: AddFavoriteCharacterUseCase,
+    private val removeFavoriteCharacterUseCase: RemoveFavoriteCharacterUseCase
 ) : BaseViewModel() {
 
     val errorMessage = MutableLiveData<Event<String>>()

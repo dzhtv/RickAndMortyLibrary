@@ -1,6 +1,7 @@
 package com.dzhtv.rickandmortylibrary.data.source
 
 import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
+import com.dzhtv.rickandmortylibrary.toLog
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -12,6 +13,7 @@ class RickAndMortyLocalDataSource(
 ) {
 
     suspend fun getCharacters(): List<CharacterItem> {
+        "getCharacters".toLog()
         return withContext(dispatcher) {
             characterDao.getCharacters().map { mapper.createCharacterItem(it) }
         }
