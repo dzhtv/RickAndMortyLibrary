@@ -16,7 +16,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
 
-        <activity android:name="com.dzhtv.rickandmortylibrary.presentation.activity.MainActivity">
+        <activity
+            android:name="com.dzhtv.rickandmortylibrary.presentation.activity.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
