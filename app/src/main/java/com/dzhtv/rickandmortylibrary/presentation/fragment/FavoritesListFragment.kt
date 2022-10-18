@@ -55,4 +55,8 @@ class FavoritesListFragment : BaseFragment() {
         binding.recyclerView.isVisible = false
         binding.emptyView.isVisible = true
     }
+
+    companion object {
+        fun create() = FavoritesListFragment()
+    }
 }

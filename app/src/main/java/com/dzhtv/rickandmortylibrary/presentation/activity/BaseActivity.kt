@@ -25,19 +25,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseActivityView {
         }
     }
 
-    fun showFragment(
-        fragment: BaseFragment,
-        @IdRes fragmentContainer: Int = R.id.fragment_container
-    ) {
-        val ft = supportFragmentManager.beginTransaction()
-        if (fragment.isAdded) {
-            ft.show(fragment)
-        } else {
-            ft.add(fragmentContainer, fragment, fragment::class.java.simpleName)
-        }
-        ft.commit()
-    }
-
     private fun replaceFragmentFromBackStack(
         fragment: BaseFragment,
         @IdRes fragmentContainer: Int = R.id.fragment_container
@@ -65,5 +52,24 @@ abstract class BaseActivity : AppCompatActivity(), BaseActivityView {
             return true
         }
         return false
+    }
+
+    // new solutions
+    fun showFragment(
+        fragment: BaseFragment,
+        @IdRes fragmentContainer: Int = R.id.fragment_container
+    ) {
+        val addedFragment =
+            supportFragmentManager.findFragmentByTag(fragment::class.java.simpleName)
+        if (addedFragment != null) {
+            supportFragmentManager.beginTransaction()
+                .replace(fragmentContainer, addedFragment, addedFragment::class.java.simpleName)
+                .commit()
+        } else {
+            supportFragmentManager.beginTransaction()
+                .replace(fragmentContainer, fragment, fragment::class.java.simpleName)
+                .addToBackStack(fragment::class.java.simpleName)
+                .commit()
+        }
     }
 }

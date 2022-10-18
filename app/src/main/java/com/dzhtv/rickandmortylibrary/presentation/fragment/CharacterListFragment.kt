@@ -100,4 +100,8 @@ class CharacterListFragment : BaseFragment() {
             }
         }
     }
+
+    companion object {
+        fun create() = CharacterListFragment()
+    }
 }

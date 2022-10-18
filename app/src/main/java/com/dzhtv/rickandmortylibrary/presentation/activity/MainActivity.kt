@@ -52,25 +52,15 @@ class MainActivity : BaseActivity() {
 
     private fun refreshNavigation() {
         if (supportFragmentManager.findFragmentById(R.id.fragment_container) == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, CharacterListFragment(), CharacterListFragment::class.java.simpleName)
-                .commit()
+            showFragment(CharacterListFragment.create())
         }
     }
 
     private fun openCharactersFragment() {
-        if (!hasVisibleFragment(CharacterListFragment::class.java.simpleName)) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, CharacterListFragment(), CharacterListFragment::class.java.simpleName)
-                .commit()
-        }
+        showFragment(CharacterListFragment.create())
     }
 
     private fun openFavoritesFragment() {
-        if (!hasVisibleFragment(FavoritesListFragment::class.java.simpleName)) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, FavoritesListFragment(), FavoritesListFragment::class.java.simpleName)
-                .commit()
-        }
+        showFragment(FavoritesListFragment.create())
     }
 }
