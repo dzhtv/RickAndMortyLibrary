@@ -19,16 +19,18 @@ import javax.inject.Singleton
 class DataSourceModule {
     @Singleton
     @Provides
-    fun provideLocalDataSource(characterDao: CharacterDao): RickAndMortyLocalDataSource {
-        return RickAndMortyLocalDataSource(characterDao, EntityMapper())
+    fun provideLocalDataSource(
+        characterDao: CharacterDao,
+        episodeDao: EpisodeDao
+    ): RickAndMortyLocalDataSource {
+        return RickAndMortyLocalDataSource(characterDao, episodeDao, EntityMapper())
     }
 
     @Singleton
     @Provides
     fun provideRemoteDataSource(service: RickAndMortyApi): RickAndMortyRemoteDataSource {
         return RickAndMortyRemoteDataSource(
-            service,
-            mapper = DtoMapper()
+            service
         )
     }
 

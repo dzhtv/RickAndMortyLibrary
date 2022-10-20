@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.dzhtv.rickandmortylibrary.R
 import com.dzhtv.rickandmortylibrary.databinding.FragmentCharacterDetailBinding
 import com.dzhtv.rickandmortylibrary.presentation.activity.MainActivity
@@ -41,7 +40,7 @@ class CharacterDetailFragment : BaseFragment() {
             requireActivity().onBackPressed()
         }
 
-        characterViewModel.character.observe(viewLifecycleOwner) {
+        characterViewModel.characterItem.observe(viewLifecycleOwner) {
             it.firstEpisodeItem?.let { episode ->
                 binding.episodeField.apply {
                     setTitle(context.getString(R.string.first_appearance))
@@ -51,9 +50,6 @@ class CharacterDetailFragment : BaseFragment() {
                     visible()
                     setOnClickListener {
                         if (requireActivity() is MainActivity) {
-//                            (requireActivity() as MainActivity).replaceFragment(
-//                                EpisodeDetailFragment()
-//                            )
                             requireActivity().supportFragmentManager.beginTransaction()
                                 .replace(R.id.container_main, EpisodeDetailFragment())
                                 .addToBackStack(null)

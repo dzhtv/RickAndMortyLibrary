@@ -24,4 +24,10 @@ class AppModule {
     fun provideCharacterDao(database: AppDatabase): CharacterDao {
         return database.getCharacterDao()
     }
+
+    @Singleton
+    @Provides
+    fun provideEpisodeDao(database: AppDatabase): EpisodeDao {
+        return database.getEpisodeDao()
+    }
 }

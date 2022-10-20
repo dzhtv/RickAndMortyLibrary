@@ -3,8 +3,7 @@ package com.dzhtv.rickandmortylibrary.data.source
 import com.dzhtv.rickandmortylibrary.data.model.*
 import com.dzhtv.rickandmortylibrary.domain.model.*
 
-class DtoMapper {
-
+object DtoMapper {
     fun createCharacterFromResponse(response: CharacterResponse): CharacterItem {
         return CharacterItem(
             created = response.created,
@@ -20,6 +19,23 @@ class DtoMapper {
             type = response.type,
             url = response.url,
             firstEpisodeItem = null
+        )
+    }
+
+    fun createCharacterResponse(character: CharacterItem): CharacterResponse {
+        return CharacterResponse(
+            id = character.id,
+            created = character.created,
+            episode = character.episode,
+            gender = character.gender,
+            image = character.image,
+            location = createCharacterLocationResponse(character.location),
+            name = character.name,
+            origin = createCharacterOriginResponse(character.origin),
+            species = character.species,
+            status = character.status,
+            type = character.type,
+            url = character.url
         )
     }
 
@@ -46,10 +62,24 @@ class DtoMapper {
         )
     }
 
+    fun createCharacterLocationResponse(item: CharacterLocation): CharacterLocationResponse {
+        return CharacterLocationResponse(
+            name = item.name,
+            url = item.url
+        )
+    }
+
     fun createCharacterOrigin(response: CharacterOriginResponse): CharacterOrigin {
         return CharacterOrigin(
             name = response.name,
             url = response.url
+        )
+    }
+
+    fun createCharacterOriginResponse(item: CharacterOrigin): CharacterOriginResponse {
+        return CharacterOriginResponse(
+            name = item.name,
+            url = item.url
         )
     }
 
@@ -62,6 +92,18 @@ class DtoMapper {
             characters = response.characters,
             url = response.url,
             created = response.created
+        )
+    }
+
+    fun createEpisodeItemResponse(item: EpisodeItem): EpisodeResponse {
+        return EpisodeResponse(
+            id = item.id,
+            name = item.name,
+            airDate = item.airDate,
+            episode = item.episode,
+            characters = item.characters,
+            url = item.url,
+            created = item.created
         )
     }
 

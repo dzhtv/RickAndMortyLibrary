@@ -1,10 +1,9 @@
 package com.dzhtv.rickandmortylibrary.data.source
 
 import androidx.room.TypeConverter
-import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
-import com.dzhtv.rickandmortylibrary.domain.model.CharacterLocation
-import com.dzhtv.rickandmortylibrary.domain.model.CharacterOrigin
-import com.dzhtv.rickandmortylibrary.domain.model.EpisodeItem
+import com.dzhtv.rickandmortylibrary.data.model.CharacterLocationResponse
+import com.dzhtv.rickandmortylibrary.data.model.CharacterOriginResponse
+import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -21,42 +20,32 @@ class CharacterDaoConverter {
     }
 
     @TypeConverter
-    fun fromCharacterItem(response: CharacterItem): String {
-        return Gson().toJson(response, object : TypeToken<CharacterItem>() {}.type)
+    fun fromCharacterResponse(response: CharacterResponse): String {
+        return Gson().toJson(response, object : TypeToken<CharacterResponse>() {}.type)
     }
 
     @TypeConverter
-    fun toCharacterItem(value: String?): CharacterItem? {
-        return value?.let { Gson().fromJson(it, CharacterItem::class.java) }
+    fun toCharacterResponse(value: String?): CharacterResponse? {
+        return value?.let { Gson().fromJson(it, CharacterResponse::class.java) }
     }
 
     @TypeConverter
-    fun fromEpisodeItem(response: EpisodeItem): String? {
-        return Gson().toJson(response, object : TypeToken<EpisodeItem>() {}.type)
+    fun fromCharacterLocation(response: CharacterLocationResponse): String {
+        return Gson().toJson(response, object : TypeToken<CharacterLocationResponse>() {}.type)
     }
 
     @TypeConverter
-    fun toEpisodeItem(value: String?): EpisodeItem? {
-        return value?.let { Gson().fromJson(it, EpisodeItem::class.java) }
+    fun toCharacterLocation(value: String?): CharacterLocationResponse? {
+        return value?.let { Gson().fromJson(it, CharacterLocationResponse::class.java) }
     }
 
     @TypeConverter
-    fun fromCharacterLocation(response: CharacterLocation): String {
-        return Gson().toJson(response, object : TypeToken<CharacterLocation>() {}.type)
+    fun fromCharacterOrigin(response: CharacterOriginResponse): String {
+        return Gson().toJson(response, object : TypeToken<CharacterOriginResponse>() {}.type)
     }
 
     @TypeConverter
-    fun toCharacterLocation(value: String?): CharacterLocation? {
-        return value?.let { Gson().fromJson(it, CharacterLocation::class.java) }
-    }
-
-    @TypeConverter
-    fun fromCharacterOrigin(response: CharacterOrigin): String? {
-        return Gson().toJson(response, object : TypeToken<CharacterOrigin>() {}.type)
-    }
-
-    @TypeConverter
-    fun toCharacterOrigin(value: String?): CharacterOrigin? {
-        return value?.let { Gson().fromJson(it, CharacterOrigin::class.java) }
+    fun toCharacterOrigin(value: String?): CharacterOriginResponse? {
+        return value?.let { Gson().fromJson(it, CharacterOriginResponse::class.java) }
     }
 }

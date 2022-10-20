@@ -53,7 +53,7 @@
                 android:layout_marginTop="12dp"
                 android:src="@drawable/res_favorite_btn"
                 android:translationZ="1dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 tools:visibility="visible"
                 />
 
@@ -66,7 +66,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:text="@{viewModel.character.name}"
+                android:text="@{viewModel.characterItem.name}"
                 android:textSize="36sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -80,7 +80,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:text="@{viewModel.character.status}"
+                android:text="@{viewModel.characterItem.status}"
                 android:textSize="16sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
@@ -100,7 +100,7 @@
                 android:textSize="16sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
-                app:isGoneIfEmpty="@{viewModel.character.origin.name}"
+                app:isGoneIfEmpty="@{viewModel.characterItem.origin.name}"
                 />
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/origin"
@@ -114,8 +114,8 @@
                 android:textSize="22sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
-                android:text="@{viewModel.character.origin.name}"
-                app:isGoneIfEmpty="@{viewModel.character.origin.name}"
+                android:text="@{viewModel.characterItem.origin.name}"
+                app:isGoneIfEmpty="@{viewModel.characterItem.origin.name}"
                 />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -132,7 +132,7 @@
                 android:textSize="16sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
-                app:isGoneIfEmpty="@{viewModel.character.location.name}"
+                app:isGoneIfEmpty="@{viewModel.characterItem.location.name}"
                 />
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/location"
@@ -146,8 +146,8 @@
                 android:textSize="22sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
-                android:text="@{viewModel.character.location.name}"
-                app:isGoneIfEmpty="@{viewModel.character.location.name}"
+                android:text="@{viewModel.characterItem.location.name}"
+                app:isGoneIfEmpty="@{viewModel.characterItem.location.name}"
                 />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -164,7 +164,7 @@
                 android:textSize="16sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
-                app:isGoneIfEmpty="@{viewModel.character.species}"
+                app:isGoneIfEmpty="@{viewModel.characterItem.species}"
                 />
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/species"
@@ -176,11 +176,11 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="1dp"
-                android:text='@{viewModel.character.species != null ? viewModel.character.species : ""}'
+                android:text='@{viewModel.characterItem.species != null ? viewModel.characterItem.species : ""}'
                 android:textSize="22sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
-                app:isGoneIfEmpty="@{viewModel.character.species}"
+                app:isGoneIfEmpty="@{viewModel.characterItem.species}"
                 />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -197,7 +197,7 @@
                 android:textSize="16sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
-                app:isGoneIfEmpty="@{viewModel.character.type}"
+                app:isGoneIfEmpty="@{viewModel.characterItem.type}"
                 />
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/type"
@@ -209,11 +209,11 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="1dp"
-                android:text='@{viewModel.character.type ?? ""}'
+                android:text='@{viewModel.characterItem.type ?? ""}'
                 android:textSize="22sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
-                app:isGoneIfEmpty="@{viewModel.character.type}"
+                app:isGoneIfEmpty="@{viewModel.characterItem.type}"
                 />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -230,7 +230,7 @@
                 android:textSize="16sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
-                app:isGoneIfEmpty="@{viewModel.character.gender}"
+                app:isGoneIfEmpty="@{viewModel.characterItem.gender}"
                 />
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/gender"
@@ -242,11 +242,11 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="1dp"
-                android:text='@{viewModel.character.gender}'
+                android:text="@{viewModel.characterItem.gender}"
                 android:textSize="22sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
-                app:isGoneIfEmpty="@{viewModel.character.gender}"
+                app:isGoneIfEmpty="@{viewModel.characterItem.gender}"
                 />
 
             <com.dzhtv.rickandmortylibrary.presentation.view.CharacterItemFieldView

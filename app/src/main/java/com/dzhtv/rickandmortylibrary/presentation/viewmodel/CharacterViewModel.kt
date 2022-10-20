@@ -27,7 +27,7 @@ class CharacterViewModel @ViewModelInject constructor(
     val errorMessage = MutableLiveData<Event<String>>()
     val scrollDown = MutableLiveData<Event<Unit>>()
     var isLoadingProgress = MutableLiveData<Event<Int>>()
-    val character = MutableLiveData<CharacterItem>()
+    val characterItem = MutableLiveData<CharacterItem>()
     val characterImageUrl = MutableLiveData<String>()
     var characters = MutableLiveData<List<CharacterItem>>(emptyList())
     private var nextPage: Int? = null
@@ -59,7 +59,7 @@ class CharacterViewModel @ViewModelInject constructor(
 
     fun clickOnPosition(position: Int) {
         characters.value?.get(position)?.let { item ->
-            character.postValue(item)
+            characterItem.postValue(item)
             item.image.let { characterImageUrl.postValue(it) }
             loadEpisode(getFirstAppearanceCharacter(item))
         }
@@ -98,9 +98,9 @@ class CharacterViewModel @ViewModelInject constructor(
             )
             when (result) {
                 is ResultWrapper.Success -> {
-                    character.value?.let {
+                    characterItem.value?.let {
                         it.firstEpisodeItem = result.data
-                        character.postValue(it)
+                        characterItem.postValue(it)
                     }
                 }
                 is ResultWrapper.Error -> result.error.message.let {

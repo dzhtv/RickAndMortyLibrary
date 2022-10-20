@@ -12,38 +12,59 @@ import javax.inject.Inject
 class RickAndMortyRepositoryImpl @Inject constructor(
     private val remoteDataSource: RickAndMortyRemoteDataSource,
     private val localDataSource: RickAndMortyLocalDataSource
-) : RickAndMortyRepository {
+) : RickAndMortyRepository, BaseNetworkHandler() {
 
     override suspend fun loadCharacters(page: Int?): ResultWrapper<Character> {
-        return remoteDataSource.getCharactersByFilter(page)
+        val response = remoteDataSource.getCharactersByFilter(page)
+        return parseResult(response) {
+            DtoMapper.createCharacterFilter(it)
+        }
     }
 
     override suspend fun getCharacterById(id: Int): ResultWrapper<CharacterItem> {
-        return remoteDataSource.getCharacterById(id)
+        val response = remoteDataSource.getCharacterById(id)
+        return parseResult(response) {
+            DtoMapper.createCharacterFromResponse(it)
+        }
     }
 
     override suspend fun getCharacters(idList: List<Int>): ResultWrapper<List<CharacterItem>> {
-        return remoteDataSource.getCharacters(idList)
+        val response = remoteDataSource.getCharacters(idList)
+        return parseResult(response) { items ->
+            items.map { DtoMapper.createCharacterFromResponse(it) }
+        }
     }
 
     override suspend fun getEpisodeList(): ResultWrapper<Episode> {
-        return remoteDataSource.getEpisodeList()
+        val response = remoteDataSource.getEpisodeList()
+        return parseResult(response) { episodeListResponse ->
+            DtoMapper.createEpisode(
+                DtoMapper.createRequestInfo(episodeListResponse.info),
+                episodeListResponse.results.map {
+                    DtoMapper.createEpisodeItem(it)
+                }
+            )
+        }
     }
 
     override suspend fun getEpisodeById(id: Int): ResultWrapper<EpisodeItem> {
-        return remoteDataSource.getEpisodeById(id)
+        val response = remoteDataSource.getEpisodeById(id)
+        return parseResult(response) {
+            DtoMapper.createEpisodeItem(it)
+        }
     }
 
     override suspend fun addToFavorites(character: CharacterItem) {
-        localDataSource.setCharacter(character)
+        localDataSource.setCharacter(DtoMapper.createCharacterResponse(character))
     }
 
     override suspend fun getFavorites(): List<CharacterItem> {
         "getFavorites".toLog()
-        return localDataSource.getCharacters()
+        val response = localDataSource.getCharacters()
+        return response.map { DtoMapper.createCharacterFromResponse(it) }
     }
 
     override suspend fun removeFromFavorites(character: CharacterItem) {
-        localDataSource.removeCharacter(character)
+        localDataSource.removeCharacter(DtoMapper.createCharacterResponse(character))
     }
 }

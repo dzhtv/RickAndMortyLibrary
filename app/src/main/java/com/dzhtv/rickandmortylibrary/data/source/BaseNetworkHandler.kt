@@ -6,12 +6,10 @@ import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import okhttp3.ResponseBody
-import retrofit2.HttpException
 import retrofit2.Response
-import java.io.IOException
 import java.lang.Exception
 
-open class BaseNetworkDataSource {
+open class BaseNetworkHandler {
 
     suspend fun <T> execute(
         dispatcher: CoroutineDispatcher,
@@ -29,7 +27,7 @@ open class BaseNetworkDataSource {
         return try {
             if (response.isSuccessful) {
                 ResultWrapper.Success(
-                    mapperCall(response.body()!!)
+                    mapperCall.invoke(response.body()!!)
                 )
             } else {
                 ResultWrapper.Error(
@@ -51,7 +49,7 @@ open class BaseNetworkDataSource {
             errorBody?.string()?.let {
                 return Gson().fromJson(it, ErrorResponse::class.java)
             } ?: run {
-                when(code) {
+                when (code) {
                     in 400..500 -> {
                         ErrorResponse("Network error")
                     }

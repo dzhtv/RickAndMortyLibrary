@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dzhtv.rickandmortylibrary.databinding.FragmentEpisodeDetailBinding
 import com.dzhtv.rickandmortylibrary.presentation.viewmodel.CharacterViewModel
@@ -40,7 +39,7 @@ class EpisodeDetailFragment : BaseFragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.character.observe(viewLifecycleOwner) { character ->
+        viewModel.characterItem.observe(viewLifecycleOwner) { character ->
             character.firstEpisodeItem?.let { episode ->
                 binding.apply {
                     episodeName.text = episode.name
