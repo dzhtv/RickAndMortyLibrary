@@ -1,6 +1,5 @@
 package com.dzhtv.rickandmortylibrary.data.source
 
-import com.dzhtv.rickandmortylibrary.domain.model.ResultWrapper
 import com.dzhtv.rickandmortylibrary.domain.model.Character
 import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
 import com.dzhtv.rickandmortylibrary.domain.model.Episode
@@ -14,28 +13,28 @@ class RickAndMortyRepositoryImpl @Inject constructor(
     private val localDataSource: RickAndMortyLocalDataSource
 ) : RickAndMortyRepository, BaseNetworkHandler() {
 
-    override suspend fun loadCharacters(page: Int?): ResultWrapper<Character> {
+    override suspend fun loadCharacters(page: Int?): Character {
         val response = remoteDataSource.getCharactersByFilter(page)
         return parseResult(response) {
             DtoMapper.createCharacterFilter(it)
         }
     }
 
-    override suspend fun getCharacterById(id: Int): ResultWrapper<CharacterItem> {
+    override suspend fun getCharacterById(id: Int): CharacterItem {
         val response = remoteDataSource.getCharacterById(id)
         return parseResult(response) {
             DtoMapper.createCharacterFromResponse(it)
         }
     }
 
-    override suspend fun getCharacters(idList: List<Int>): ResultWrapper<List<CharacterItem>> {
+    override suspend fun getCharacters(idList: List<Int>): List<CharacterItem> {
         val response = remoteDataSource.getCharacters(idList)
         return parseResult(response) { items ->
             items.map { DtoMapper.createCharacterFromResponse(it) }
         }
     }
 
-    override suspend fun getEpisodeList(): ResultWrapper<Episode> {
+    override suspend fun getEpisodeList(): Episode {
         val response = remoteDataSource.getEpisodeList()
         return parseResult(response) { episodeListResponse ->
             DtoMapper.createEpisode(
@@ -47,7 +46,7 @@ class RickAndMortyRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getEpisodeById(id: Int): ResultWrapper<EpisodeItem> {
+    override suspend fun getEpisodeById(id: Int): EpisodeItem {
         val response = remoteDataSource.getEpisodeById(id)
         return parseResult(response) {
             DtoMapper.createEpisodeItem(it)

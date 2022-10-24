@@ -73,9 +73,9 @@ class CharacterViewModel @ViewModelInject constructor(
             )
             when (result) {
                 is ResultWrapper.Success -> handleCharacterResponse(result.data)
-                is ResultWrapper.Error -> result.error.message.let {
-                    errorMessage.postValue(Event(it))
-                }
+                is ResultWrapper.Error -> errorMessage.postValue(
+                    Event(result.error.message)
+                )
             }
             isLoadingProgress.postValue(Event(View.GONE))
         }
@@ -103,9 +103,9 @@ class CharacterViewModel @ViewModelInject constructor(
                         characterItem.postValue(it)
                     }
                 }
-                is ResultWrapper.Error -> result.error.message.let {
-                    errorMessage.postValue(Event(it))
-                }
+                is ResultWrapper.Error -> errorMessage.postValue(
+                    Event(result.error.message)
+                )
             }
         }
     }

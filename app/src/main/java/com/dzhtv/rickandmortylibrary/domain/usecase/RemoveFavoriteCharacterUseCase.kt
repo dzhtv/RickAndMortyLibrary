@@ -10,7 +10,7 @@ class RemoveFavoriteCharacterUseCase @Inject constructor(
 
     data class RequestValues(val character: CharacterItem) : BaseCoroutineUseCase.RequestValues()
 
-    override suspend fun execute(params: RequestValues): Boolean {
+    override suspend fun run(params: RequestValues): Boolean {
         repository.removeFromFavorites(params.character)
         return true
     }

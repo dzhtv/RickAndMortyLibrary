@@ -1,7 +1,8 @@
 package com.dzhtv.rickandmortylibrary.data.source
 
 import com.dzhtv.rickandmortylibrary.domain.model.ErrorResponse
-import com.dzhtv.rickandmortylibrary.domain.model.ResultWrapper
+import com.dzhtv.rickandmortylibrary.domain.model.NetworkException
+import com.dzhtv.rickandmortylibrary.domain.model.toNetworkException
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -23,24 +24,18 @@ open class BaseNetworkHandler {
     fun <T, K> parseResult(
         response: Response<T>,
         mapperCall: (T) -> K
-    ): ResultWrapper<K> {
+    ): K {
         return try {
             if (response.isSuccessful) {
-                ResultWrapper.Success(
-                    mapperCall.invoke(response.body()!!)
-                )
+                mapperCall.invoke(response.body()!!)
             } else {
-                ResultWrapper.Error(
-                    convertErrorBody(
-                        code = response.code(),
-                        errorBody = response.errorBody()
-                    )
-                )
+                throw convertErrorBody(
+                    code = response.code(),
+                    errorBody = response.errorBody()
+                ).toNetworkException()
             }
         } catch (t: Throwable) {
-            ResultWrapper.Error(
-                ErrorResponse(message = "Unknown error")
-            )
+            throw NetworkException("Unknown error")
         }
     }
 
@@ -63,24 +58,18 @@ open class BaseNetworkHandler {
         }
     }
 
-//    suspend fun <T> execute(dispatcher: CoroutineDispatcher, apiCall: suspend () -> T): ResultWrapper<T> {
-//        return withContext(dispatcher) {
-//            try {
-//                ResultWrapper.Success(apiCall.invoke())
-//            } catch (throwable: Throwable) {
-//                when(throwable) {
-//                    is IOException -> ResultWrapper.NetworkError
-//                    is HttpException -> {
-//                        val code = throwable.code()
-//                        val errorResponse = convertErrorBody(throwable)
-//                        ResultWrapper.GenericError(code, errorResponse)
-//                    }
-//                    else -> {
-//                        ResultWrapper.GenericError(null, null)
-//                    }
-//                }
-//            }
-//        }
-//    }
-
+    fun <T> parseResult(response: Response<T>): T {
+        return try {
+            if (response.isSuccessful) {
+                response.body()!!
+            } else {
+                throw convertErrorBody(
+                    code = response.code(),
+                    errorBody = response.errorBody()
+                ).toNetworkException()
+            }
+        } catch (throwable: Throwable) {
+            throw NetworkException("Unknown error")
+        }
+    }
 }
