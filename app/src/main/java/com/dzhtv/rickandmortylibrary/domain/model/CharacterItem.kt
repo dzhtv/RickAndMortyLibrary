@@ -17,5 +17,6 @@ data class CharacterItem(
     val status: String,
     val type: String,
     val url: String,
-    var firstEpisodeItem: EpisodeItem?
+    var isFavorite: Boolean,
+    var firstEpisodeItem: EpisodeItem? = null
 ) : Parcelable

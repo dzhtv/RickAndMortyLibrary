@@ -18,6 +18,7 @@ object DtoMapper {
             status = response.status,
             type = response.type,
             url = response.url,
+            isFavorite = false, // will change it
             firstEpisodeItem = null
         )
     }

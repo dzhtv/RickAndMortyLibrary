@@ -64,6 +64,11 @@ class RickAndMortyRepositoryImpl @Inject constructor(
         return response.map { DtoMapper.createCharacterFromResponse(it) }
     }
 
+    override suspend fun findFavoriteCharacter(id: Int): CharacterItem? {
+        val response = localDataSource.findCharacterById(id)
+        return response?.let { DtoMapper.createCharacterFromResponse(it) }
+    }
+
     override suspend fun removeFromFavorites(character: CharacterItem) {
         localDataSource.removeCharacter(DtoMapper.createCharacterResponse(character))
     }

@@ -1,5 +1,6 @@
 package com.dzhtv.rickandmortylibrary.domain.repository
 
+import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
 import com.dzhtv.rickandmortylibrary.domain.model.ResultWrapper
 import com.dzhtv.rickandmortylibrary.domain.model.Character
 import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
@@ -21,6 +22,8 @@ interface RickAndMortyRepository {
     suspend fun getFavorites(): List<CharacterItem>
 
     suspend fun addToFavorites(character: CharacterItem)
+
+    suspend fun findFavoriteCharacter(id: Int): CharacterItem?
 
     suspend fun removeFromFavorites(character: CharacterItem)
 }
