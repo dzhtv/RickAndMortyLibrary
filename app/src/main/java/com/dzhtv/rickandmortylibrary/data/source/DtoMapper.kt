@@ -4,7 +4,11 @@ import com.dzhtv.rickandmortylibrary.data.model.*
 import com.dzhtv.rickandmortylibrary.domain.model.*
 
 object DtoMapper {
-    fun createCharacterFromResponse(response: CharacterResponse): CharacterItem {
+    fun createCharacterFromResponse(
+        response: CharacterResponse,
+        hasInFavorites: Boolean = false,
+        firstEpisode: EpisodeResponse? = null
+    ): CharacterItem {
         return CharacterItem(
             created = response.created,
             episode = response.episode,
@@ -18,8 +22,8 @@ object DtoMapper {
             status = response.status,
             type = response.type,
             url = response.url,
-            isFavorite = false, // will change it
-            firstEpisodeItem = null
+            isFavorite = hasInFavorites,
+            firstEpisodeItem = firstEpisode?.let { createEpisodeItem(it) }
         )
     }
 
@@ -44,6 +48,16 @@ object DtoMapper {
         return Character(
             info = createRequestInfo(response.info),
             characters = response.results.map { createCharacterFromResponse(it) }
+        )
+    }
+
+    fun createCharacterFilter(
+        response: CharacterFilterResponse,
+        characterItems: List<CharacterItem>
+    ): Character {
+        return Character(
+            info = createRequestInfo(response.info),
+            characters = characterItems
         )
     }
 

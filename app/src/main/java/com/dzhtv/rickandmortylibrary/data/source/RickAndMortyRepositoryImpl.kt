@@ -1,5 +1,7 @@
 package com.dzhtv.rickandmortylibrary.data.source
 
+import com.dzhtv.rickandmortylibrary.data.model.CharacterFilterResponse
+import com.dzhtv.rickandmortylibrary.data.model.CharacterResponse
 import com.dzhtv.rickandmortylibrary.domain.model.Character
 import com.dzhtv.rickandmortylibrary.domain.model.CharacterItem
 import com.dzhtv.rickandmortylibrary.domain.model.Episode
@@ -14,10 +16,11 @@ class RickAndMortyRepositoryImpl @Inject constructor(
 ) : RickAndMortyRepository, BaseNetworkHandler() {
 
     override suspend fun loadCharacters(page: Int?): Character {
-        val response = remoteDataSource.getCharactersByFilter(page)
-        return parseResult(response) {
-            DtoMapper.createCharacterFilter(it)
-        }
+        val filterResponse = parseResult(
+            remoteDataSource.getCharactersByFilter(page)
+        )
+        val characters = buildCharacters(filterResponse)
+        return DtoMapper.createCharacterFilter(filterResponse, characters)
     }
 
     override suspend fun getCharacterById(id: Int): CharacterItem {
@@ -70,5 +73,27 @@ class RickAndMortyRepositoryImpl @Inject constructor(
 
     override suspend fun removeFromFavorites(character: CharacterItem) {
         localDataSource.removeCharacter(DtoMapper.createCharacterResponse(character))
+    }
+
+    private suspend fun buildCharacters(response: CharacterFilterResponse): List<CharacterItem> {
+        val characters = ArrayList<CharacterItem>()
+        response.results.forEach { item ->
+            val savedItem = localDataSource.findCharacterById(item.id)
+            val firstEpisode = remoteDataSource.getEpisodeById(
+                getFirstAppearanceCharacter(item)
+            )
+            characters.add(
+                DtoMapper.createCharacterFromResponse(
+                    item,
+                    hasInFavorites = savedItem != null,
+                    firstEpisode = parseResult(firstEpisode)
+                )
+            )
+        }
+        return characters
+    }
+
+    private fun getFirstAppearanceCharacter(value: CharacterResponse): Int {
+        return value.episode.first().substringAfterLast("episode/").toInt()
     }
 }
